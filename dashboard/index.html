@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FF9966">
+    <title>研究資訊平台 - 網頁儀表板</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="container">
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1 class="dashboard-title">網頁儀表板</h1>
+                <p class="dashboard-subtitle">快速訪問常用網站和資源</p>
+            </div>
+        </header>
+
+        <div class="tools-container">
+            <div class="search-container">
+                <i class="ri-search-line search-icon"></i>
+                <input type="search" class="search-box" placeholder="搜尋網站..." aria-label="搜尋網站">
+                <button class="search-clear" aria-label="清除搜索">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+
+            <div class="view-toggle">
+                <button class="view-btn active" data-view="grid" aria-label="網格視圖">
+                    <i class="ri-grid-fill"></i>
+                </button>
+                <button class="view-btn" data-view="list" aria-label="列表視圖">
+                    <i class="ri-list-check"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="category-filter">
+            <button class="category-btn active" data-category="常用">
+                <i class="ri-star-line"></i>
+                <span>常用</span>
+            </button>
+            <button class="category-btn" data-category="金融投資">
+                <i class="ri-money-dollar-circle-line"></i>
+                <span>金融投資</span>
+            </button>
+            <button class="category-btn" data-category="氣象">
+                <i class="ri-cloud-line"></i>
+                <span>氣象</span>
+            </button>
+            <button class="category-btn" data-category="人工智能">
+                <i class="ri-brain-line"></i>
+                <span>人工智能</span>
+            </button>
+            <button class="category-btn" data-category="其他">
+                <i class="ri-more-2-line"></i>
+                <span>其他</span>
+            </button>
+        </div>
+
+        <main class="grid-container" data-view="grid">
+            <!-- 由 JavaScript 動態生成 -->
+        </main>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <!-- 新增：加載提示 -->
+    <div class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <span>載入中...</span>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/dashboard.js"></script>
+</body>
+</html>

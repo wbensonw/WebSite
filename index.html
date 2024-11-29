@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FF9966">
+    <meta name="description" content="研究資訊平台 - 整合您的研究資源">
+    <title>研究資訊平台</title>
+    <script>
+        // 檢查並應用保存的主題設置
+        const theme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+    </script>
+    <style>
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: #FAFAFA;
+            color: #424242;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        [data-theme="dark"] .loading {
+            background: #212121;
+            color: #FAFAFA;
+        }
+    </style>
+    <meta http-equiv="refresh" content="0;url=dashboard/">
+</head>
+<body>
+    <div class="loading">
+        載入中...
+    </div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+{
+    "papers": [
+        {
+            "id": "paper1",
+            "title": "人工智慧在教育領域的應用：系統性文獻回顧",
+            "authors": ["王小明", "李大華", "張三"],
+            "year": 2024,
+            "journal": "教育科技研究期刊",
+            "volume": "15",
+            "issue": "2",
+            "pages": "45-67",
+            "doi": "10.1234/journal.edu.2024.001",
+            "keywords": ["人工智慧", "教育科技", "文獻回顧", "教學應用"],
+            "abstract": "本研究旨在探討人工智慧在教育領域的應用現況與未來發展趨勢。通過對2020-2024年間發表的相關文獻進行系統性回顧，分析了AI在教學、學習評估、個人化學習等方面的應用情況。研究結果顯示，AI技術在提升學習效果、個性化教學和自適應學習系統方面具有顯著優勢。",
+            "citation": "王小明, 李大華, 張三 (2024). 人工智慧在教育領域的應用：系統性文獻回顧. 教育科技研究期刊, 15(2), 45-67.",
+            "url": "https://example.com/paper1",
+            "tags": ["教育AI", "文獻綜述", "教育創新"],
+            "citations": 12,
+            "downloads": 156,
+            "publishedDate": "2024-01-15",
+            "updatedDate": "2024-03-20"
+        },
+        {
+            "id": "paper2",
+            "title": "深度學習在自然語言處理中的創新應用",
+            "authors": ["陳美玲", "林志明"],
+            "year": 2023,
+            "journal": "計算機科學期刊",
+            "volume": "28",
+            "issue": "4",
+            "pages": "112-135",
+            "doi": "10.1234/journal.cs.2023.002",
+            "keywords": ["深度學習", "自然語言處理", "人工智慧", "機器學習"],
+            "abstract": "本研究提出了一種新的深度學習模型，用於改善自然語言處理中的語意理解能力。實驗結果表明，該模型在多個標準測試集上都取得了優異的表現，特別是在複雜語境理解和跨語言任務中展現出顯著優勢。",
+            "citation": "陳美玲, 林志明 (2023). 深度學習在自然語言處理中的創新應用. 計算機科學期刊, 28(4), 112-135.",
+            "url": "https://example.com/paper2",
+            "tags": ["NLP", "深度學習", "AI研究"],
+            "citations": 25,
+            "downloads": 234,
+            "publishedDate": "2023-11-20",
+            "updatedDate": "2024-02-15"
+        }
+    ],
+    "categories": [
+        {
+            "id": "ai",
+            "name": "人工智慧",
+            "icon": "ri-brain-line"
+        },
+        {
+            "id": "education",
+            "name": "教育科技",
+            "icon": "ri-book-open-line"
+        },
+        {
+            "id": "computer-science",
+            "name": "計算機科學",
+            "icon": "ri-computer-line"
+        }
+    ],
+    "settings": {
+        "defaultSort": "year-desc",
+        "citationFormat": "APA",
+        "itemsPerPage": 10,
+        "enableExport": true,
+        "exportFormats": ["bibtex", "ris", "csv"]
+    }
+}
