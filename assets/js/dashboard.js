@@ -6,6 +6,8 @@ class DashboardManager {
         this.searchTerm = '';
         this.currentView = 'grid';
         this.isLoading = false;
+        this.othersClickCount = 0;
+        this.categories = [];
     }
 
     // 初始化儀表板
@@ -29,7 +31,8 @@ class DashboardManager {
         const data = await loadJsonData('../assets/data/widgets.json');
         if (!data) throw new Error('無法載入數據');
         this.widgets = data.widgets;
-        this.setupCategories(data.categories);
+        this.categories = data.categories;
+        this.setupCategories(this.categories.filter(cat => cat.visible));
         return data.categories;
     }
 
@@ -39,7 +42,8 @@ class DashboardManager {
         if (!filterContainer) return;
 
         filterContainer.innerHTML = categories.map(category => `
-            <button class="category-btn" data-category="${category.name}">
+            <button class="category-btn ${category.name === '其他2' ? 'hidden' : ''}" 
+                    data-category="${category.name}">
                 <i class="${category.icon}"></i>
                 <span>${category.name}</span>
             </button>
@@ -88,32 +92,6 @@ class DashboardManager {
         document.addEventListener('keydown', (e) => {
             this.handleKeyboardShortcuts(e);
         });
-
-        // 新增：鼠標懸停效果
-        document.addEventListener('mouseover', (e) => {
-            const widget = e.target.closest('.widget');
-            if (widget) {
-                this.handleWidgetHover(widget, true);
-            }
-        });
-
-        document.addEventListener('mouseout', (e) => {
-            const widget = e.target.closest('.widget');
-            if (widget) {
-                this.handleWidgetHover(widget, false);
-            }
-        });
-    }
-
-    // 處理 Widget 懸停效果
-    handleWidgetHover(widget, isHovering) {
-        if (isHovering) {
-            widget.style.transform = 'translateY(-4px)';
-            widget.style.boxShadow = 'var(--shadow-lg)';
-        } else {
-            widget.style.transform = '';
-            widget.style.boxShadow = '';
-        }
     }
 
     // 設置初始狀態
@@ -121,18 +99,43 @@ class DashboardManager {
         // 恢復保存的視圖設置
         const savedView = localStorage.getItem('dashboardView') || 'grid';
         this.handleViewChange(savedView);
+
+        // 恢復點擊計數和顯示狀態
+        this.othersClickCount = parseInt(localStorage.getItem('othersClickCount') || '0');
+        
+        if (this.othersClickCount >= 5) {
+            this.showOthers2Category();
+        }
+    }
+
+    // 顯示其他2分類
+    showOthers2Category() {
+        const others2Btn = document.querySelector('.category-btn[data-category="其他2"]');
+        if (others2Btn) {
+            others2Btn.classList.remove('hidden');
+            others2Btn.classList.add('visible');
+        }
     }
 
     // 處理分類變更
     handleCategoryChange(button) {
+        const category = button.dataset.category;
+        
+        if (category === '其他') {
+            this.othersClickCount++;
+            localStorage.setItem('othersClickCount', this.othersClickCount);
+            
+            if (this.othersClickCount === 5) {
+                this.showOthers2Category();
+                showNotification('已解鎖隱藏分類', 'success');
+            }
+        }
+
         document.querySelectorAll('.category-btn').forEach(btn => 
             btn.classList.remove('active'));
         button.classList.add('active');
-        this.currentCategory = button.dataset.category;
+        this.currentCategory = category;
         this.render();
-
-        // 保存當前分類
-        localStorage.setItem('currentCategory', this.currentCategory);
     }
 
     // 處理搜索
