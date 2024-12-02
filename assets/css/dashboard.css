@@ -129,6 +129,7 @@
     padding: 0.5rem 0;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    position: relative;
 }
 
 .category-filter::-webkit-scrollbar {
@@ -144,10 +145,28 @@
     font-weight: 500;
     cursor: pointer;
     white-space: nowrap;
-    transition: var(--transition-bounce);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.category-btn.hidden {
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    position: absolute;
+    visibility: hidden;
+}
+
+.category-btn.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    position: relative;
+    visibility: visible;
 }
 
 .category-btn i {
@@ -326,6 +345,19 @@
     }
 }
 
+/* 無結果提示 */
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-tertiary);
+}
+
+.no-results i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
 /* 響應式設計 */
 @media (min-width: 2000px) {
     .grid-container[data-view="grid"] {
@@ -423,4 +455,45 @@
 
 [data-theme="dark"] .widget:hover .widget-icon {
     background: var(--primary-light);
+}
+
+/* 動畫效果 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* 通知樣式 */
+.notification {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1rem 2rem;
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    animation: slideUp 0.3s ease-out forwards;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translate(-50%, 100%);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
 }
