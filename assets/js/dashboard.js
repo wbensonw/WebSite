@@ -8,6 +8,7 @@ class DashboardManager {
         this.isLoading = false;
         this.othersClickCount = 0;
         this.categories = [];
+        this.isOthers2Visible = false;
     }
 
     // 初始化儀表板
@@ -96,14 +97,14 @@ class DashboardManager {
 
     // 設置初始狀態
     setInitialState() {
-        // 恢復保存的視圖設置
         const savedView = localStorage.getItem('dashboardView') || 'grid';
         this.handleViewChange(savedView);
 
-        // 恢復點擊計數和顯示狀態
+        // 恢復其他2的顯示狀態
+        this.isOthers2Visible = localStorage.getItem('isOthers2Visible') === 'true';
         this.othersClickCount = parseInt(localStorage.getItem('othersClickCount') || '0');
         
-        if (this.othersClickCount >= 5) {
+        if (this.isOthers2Visible) {
             this.showOthers2Category();
         }
     }
@@ -117,17 +118,42 @@ class DashboardManager {
         }
     }
 
+    // 隱藏其他2分類
+    hideOthers2Category() {
+        const others2Btn = document.querySelector('.category-btn[data-category="其他2"]');
+        if (others2Btn) {
+            others2Btn.classList.remove('visible');
+            others2Btn.classList.add('hidden');
+        }
+
+        // 如果當前正在查看其他2，切換回其他
+        if (this.currentCategory === '其他2') {
+            const othersBtn = document.querySelector('.category-btn[data-category="其他"]');
+            if (othersBtn) {
+                this.handleCategoryChange(othersBtn);
+            }
+        }
+    }
+
     // 處理分類變更
     handleCategoryChange(button) {
         const category = button.dataset.category;
         
         if (category === '其他') {
-            this.othersClickCount++;
+            this.othersClickCount = (this.othersClickCount + 1) % 10;
             localStorage.setItem('othersClickCount', this.othersClickCount);
             
             if (this.othersClickCount === 5) {
-                this.showOthers2Category();
-                showNotification('已解鎖隱藏分類', 'success');
+                this.isOthers2Visible = !this.isOthers2Visible;
+                localStorage.setItem('isOthers2Visible', this.isOthers2Visible);
+                
+                if (this.isOthers2Visible) {
+                    this.showOthers2Category();
+                    showNotification('已解鎖隱藏分類', 'success');
+                } else {
+                    this.hideOthers2Category();
+                    showNotification('已隱藏分類', 'success');
+                }
             }
         }
 
