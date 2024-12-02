@@ -1,4 +1,53 @@
+// 主題相關功能
+function initTheme() {
+    // 檢查本地存儲中的主題設置
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    
+    // 設置文檔屬性
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    
+    // 更新圖標
+    updateThemeIcon(savedTheme);
+}
+
+function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    // 更新文檔屬性
+    document.documentElement.setAttribute('data-theme', newTheme);
+    
+    // 保存到本地存儲
+    localStorage.setItem('theme', newTheme);
+    
+    // 更新圖標
+    updateThemeIcon(newTheme);
+}
+
+function updateThemeIcon(theme) {
+    const icon = document.getElementById('theme-icon');
+    if (icon) {
+        icon.className = theme === 'dark' ? 'ri-moon-line' : 'ri-sun-line';
+    }
+}
+
+// 頁面加載和導航
 document.addEventListener('DOMContentLoaded', function() {
+    // 初始化主題
+    initTheme();
+
+    // 監聽系統主題變化
+    if (window.matchMedia) {
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        mediaQuery.addListener((e) => {
+            if (!localStorage.getItem('theme')) {
+                const theme = e.matches ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', theme);
+                updateThemeIcon(theme);
+            }
+        });
+    }
+
     // 獲取當前頁面的相對路徑
     const currentPath = window.location.pathname;
     let headerPath, footerPath;
@@ -32,6 +81,9 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             document.getElementById('header-placeholder').innerHTML = modifiedHtml;
             setActiveNavItem();
+            
+            // 重新初始化主題圖標
+            updateThemeIcon(document.documentElement.getAttribute('data-theme'));
         })
         .catch(err => console.error('載入頁首失敗:', err));
 
@@ -86,9 +138,11 @@ function formatDate(dateString) {
 async function copyToClipboard(text) {
     try {
         await navigator.clipboard.writeText(text);
+        showNotification('已複製到剪貼簿', 'success');
         return true;
     } catch (err) {
         console.error('複製失敗:', err);
+        showNotification('複製失敗', 'error');
         return false;
     }
 }
@@ -99,11 +153,34 @@ function showNotification(message, type = 'success') {
     notification.className = `notification ${type}`;
     notification.textContent = message;
     
+    // 添加自定義樣式
+    notification.style.position = 'fixed';
+    notification.style.bottom = '20px';
+    notification.style.left = '50%';
+    notification.style.transform = 'translateX(-50%)';
+    notification.style.padding = '12px 24px';
+    notification.style.borderRadius = '8px';
+    notification.style.backgroundColor = type === 'success' ? 'var(--success)' : 'var(--error)';
+    notification.style.color = 'white';
+    notification.style.boxShadow = 'var(--shadow-lg)';
+    notification.style.zIndex = '9999';
+    notification.style.opacity = '0';
+    notification.style.transition = 'opacity 0.3s ease-in-out';
+    
     document.body.appendChild(notification);
     
+    // 淡入效果
+    requestAnimationFrame(() => {
+        notification.style.opacity = '1';
+    });
+    
+    // 3秒後淡出並移除
     setTimeout(() => {
-        notification.remove();
-    }, 2000);
+        notification.style.opacity = '0';
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 3000);
 }
 
 // 載入 JSON 數據
@@ -236,17 +313,3 @@ const device = {
     isTablet: () => window.innerWidth > 768 && window.innerWidth <= 1024,
     isDesktop: () => window.innerWidth > 1024
 };
-
-// 主題切換
-function toggleTheme() {
-    const isDark = document.body.classList.toggle('dark-theme');
-    storage.set('theme', isDark ? 'dark' : 'light');
-}
-
-// 初始化主題
-function initTheme() {
-    const savedTheme = storage.get('theme');
-    if (savedTheme === 'dark') {
-        document.body.classList.add('dark-theme');
-    }
-}
