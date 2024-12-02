@@ -230,32 +230,45 @@
         {
             "id": "frequent",
             "name": "常用",
-            "icon": "ri-star-line"
+            "icon": "ri-star-line",
+            "visible": true
         },
         {
             "id": "finance",
             "name": "金融投資",
-            "icon": "ri-money-dollar-circle-line"
+            "icon": "ri-money-dollar-circle-line",
+            "visible": true
         },
         {
             "id": "weather",
             "name": "氣象環境",
-            "icon": "ri-cloud-line"
+            "icon": "ri-cloud-line",
+            "visible": true
         },
         {
             "id": "ai",
             "name": "人工智能",
-            "icon": "ri-brain-line"
+            "icon": "ri-brain-line",
+            "visible": true
         },
         {
             "id": "journal",
             "name": "期刊論文",
-            "icon": "ri-article-line"
+            "icon": "ri-article-line",
+            "visible": true
         },
         {
             "id": "others",
             "name": "其他",
-            "icon": "ri-more-2-line"
+            "icon": "ri-more-2-line",
+            "visible": true,
+            "clickCount": 0
+        },
+        {
+            "id": "others2",
+            "name": "其他2",
+            "icon": "ri-more-2-line",
+            "visible": false
         }
     ],
     "settings": {
