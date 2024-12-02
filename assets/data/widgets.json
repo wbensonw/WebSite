@@ -42,7 +42,7 @@
             "icon": "ri-cloud-line",
             "description": "中國氣象局官方網站，提供全國天氣預報和氣象服務。",
             "url": "nmc.cn",
-            "categories": ["氣象"],
+            "categories": ["氣象環境"],
             "priority": 5
         },
         {
@@ -51,7 +51,7 @@
             "icon": "ri-cloud-line",
             "description": "廣東省氣象局官方網站，提供廣東地區天氣預報服務。",
             "url": "ftp.gd121.cn",
-            "categories": ["氣象"],
+            "categories": ["氣象環境"],
             "priority": 6
         },
         {
@@ -60,7 +60,7 @@
             "icon": "ri-cloud-line",
             "description": "珠海市氣象局官方網站，提供珠海地區天氣預報服務。",
             "url": "weather.zhuhai.gov.cn/#/home",
-            "categories": ["氣象"],
+            "categories": ["氣象環境"],
             "priority": 7
         },
         {
@@ -69,7 +69,7 @@
             "icon": "ri-flight-takeoff-line",
             "description": "澳門國際機場航空天氣資訊。",
             "url": "aviationweather.gov/data/metar/?id=VMMC&hours=24&include_taf=yes",
-            "categories": ["氣象"],
+            "categories": ["氣象環境"],
             "priority": 8
         },
         {
@@ -78,7 +78,7 @@
             "icon": "ri-typhoon-line",
             "description": "提供颱風路徑預測和天氣分析資訊。",
             "url": "easterlywave.com/typhoon/ensemble",
-            "categories": ["氣象"],
+            "categories": ["氣象環境"],
             "priority": 9
         },
         {
@@ -87,7 +87,7 @@
             "icon": "ri-ship-line",
             "description": "提供海洋氣象資訊和航海天氣預報。",
             "url": "sailingweather.cn/html_wx/pangu-tem.html",
-            "categories": ["氣象"],
+            "categories": ["氣象環境"],
             "priority": 10
         },
         {
@@ -96,7 +96,7 @@
             "icon": "ri-leaf-line",
             "description": "提供生態氣象監測和預報服務。",
             "url": "em.cams.cma.cn/#/dashhome",
-            "categories": ["氣象"],
+            "categories": ["氣象環境"],
             "priority": 11
         },
         {
@@ -105,7 +105,7 @@
             "icon": "ri-satellite-line",
             "description": "日本氣象廳衛星雲圖服務。",
             "url": "data.jma.go.jp/mscweb/data/himawari/index.html",
-            "categories": ["氣象"],
+            "categories": ["氣象環境"],
             "priority": 12
         },
         {
@@ -114,7 +114,7 @@
             "icon": "ri-temp-cold-line",
             "description": "提供氣候監測、預測和氣候變化相關資訊。",
             "url": "cmdp.ncc-cma.net/cn/index.htm",
-            "categories": ["氣象"],
+            "categories": ["氣象環境"],
             "priority": 13
         },
         {
@@ -123,7 +123,7 @@
             "icon": "ri-earth-line",
             "description": "太平洋地區實時衛星雲圖。",
             "url": "tropic.ssec.wisc.edu/real-time/mosaic/images/moswir.jpg",
-            "categories": ["氣象"],
+            "categories": ["氣象環境"],
             "priority": 14
         },
         {
@@ -132,7 +132,7 @@
             "icon": "ri-image-line",
             "description": "NASA MODIS衛星每日精選圖像。",
             "url": "modis.gsfc.nasa.gov/gallery/showall.php",
-            "categories": ["氣象"],
+            "categories": ["氣象環境"],
             "priority": 15
         },
         {
@@ -141,7 +141,7 @@
             "icon": "ri-earth-line",
             "description": "NASA地球觀測站每日圖像。",
             "url": "earthobservatory.nasa.gov/topic/image-of-the-day",
-            "categories": ["氣象"],
+            "categories": ["氣象環境"],
             "priority": 16
         },
         {
@@ -150,7 +150,7 @@
             "icon": "ri-water-flash-line",
             "description": "全球珊瑚礁觀測網海水溫度數據。",
             "url": "coralreefwatch.noaa.gov/product/5km",
-            "categories": ["氣象"],
+            "categories": ["氣象環境"],
             "priority": 17
         },
         {
@@ -159,7 +159,7 @@
             "icon": "ri-snowy-line",
             "description": "全球海冰觀測和分析資料。",
             "url": "nsidc.org/sea-ice-today/sea-ice-tools/charctic-interactive-sea-ice-graph",
-            "categories": ["氣象"],
+            "categories": ["氣象環境"],
             "priority": 18
         },
         {
@@ -168,7 +168,7 @@
             "icon": "ri-video-line",
             "description": "氣象科普知識視頻平台。",
             "url": "weather.com.cn/video/kp/index.shtml",
-            "categories": ["氣象"],
+            "categories": ["氣象環境"],
             "priority": 19
         },
         {
@@ -177,7 +177,7 @@
             "icon": "ri-radar-line",
             "description": "馬登-朱利安振盪預測資訊。",
             "url": "cpc.ncep.noaa.gov/products/precip/CWlink/MJO/CLIVAR/clivar_wh.shtml",
-            "categories": ["氣象"],
+            "categories": ["氣象環境"],
             "priority": 20
         },
         {
@@ -186,7 +186,7 @@
             "icon": "ri-database-2-line",
             "description": "提供氣象觀測和研究資料。",
             "url": "140.137.32.27/www/?fbcli",
-            "categories": ["氣象"],
+            "categories": ["氣象環境"],
             "priority": 21
         },
         {
@@ -195,8 +195,35 @@
             "icon": "ri-database-2-line",
             "description": "美國國家大氣研究中心氣象資料庫。",
             "url": "rda.ucar.edu/datasets/d084001/dataaccess",
-            "categories": ["氣象"],
+            "categories": ["氣象環境"],
             "priority": 22
+        },
+		{
+            "id": "macao-library",
+            "title": "澳門館公共圖書館 - 電子資源",
+            "icon": "ri-book-2-line",
+            "description": "澳門圖書館電子資源平台，提供豐富的電子報紙和期刊資源。",
+            "url": "library.gov.mo/zh-hant/library-collections/e-resources/e-newspapper/pressreader",
+            "categories": ["期刊論文"],
+            "priority": 23
+        },
+        {
+            "id": "connected-papers",
+            "title": "ConnectedPapers",
+            "icon": "ri-mindmap-line",
+            "description": "視覺化學術論文關係網絡，幫助發現相關研究和追蹤學術發展脈絡。",
+            "url": "connectedpapers.com",
+            "categories": ["期刊論文"],
+            "priority": 24
+        },
+        {
+            "id": "elicit",
+            "title": "Elicit",
+            "icon": "ri-ai-generate",
+            "description": "基於人工智能的研究助手，協助文獻綜述和研究趨勢分析。",
+            "url": "elicit.com",
+            "categories": ["期刊論文"],
+            "priority": 25
         }
     ],
     "categories": [
@@ -212,13 +239,18 @@
         },
         {
             "id": "weather",
-            "name": "氣象",
+            "name": "氣象環境",
             "icon": "ri-cloud-line"
         },
         {
             "id": "ai",
             "name": "人工智能",
             "icon": "ri-brain-line"
+        },
+        {
+            "id": "journal",
+            "name": "期刊論文",
+            "icon": "ri-article-line"
         },
         {
             "id": "others",
