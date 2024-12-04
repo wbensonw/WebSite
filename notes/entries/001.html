@@ -14,6 +14,13 @@
 
     <!-- 主要內容 -->
     <main class="container">
+        <div class="back-to-notes">
+            <a href="../index.html" class="back-link">
+                <i class="ri-arrow-left-line"></i>
+                返回筆記列表
+            </a>
+        </div>
+
         <article class="note-detail">
             <header class="note-detail-header">
                 <div class="note-meta">
@@ -30,7 +37,10 @@
             </header>
 
             <div class="note-content">
-                <p>本研究探討了深度學習在自然語言處理領域的最新發展。通過分析Transformer架構的演進，我們發現大型語言模型在多個任務上都展現出優異的性能。</p>
+                <div class="note-abstract">
+                    <h2>摘要</h2>
+                    <p>本研究探討了深度學習在自然語言處理領域的最新發展。通過分析Transformer架構的演進，我們發現大型語言模型在多個任務上都展現出優異的性能。</p>
+                </div>
                 
                 <div class="image-gallery">
                     <figure>
@@ -47,19 +57,25 @@
                     </figure>
                 </div>
 
-                <h2>研究背景</h2>
-                <p>近年來，深度學習技術在自然語言處理領域取得了突破性進展...</p>
+                <section class="note-section">
+                    <h2>研究背景</h2>
+                    <p>近年來，深度學習技術在自然語言處理領域取得了突破性進展。特別是Transformer架構的提出，為大規模語言模型的發展奠定了基礎。這些模型在機器翻譯、文本生成、問答系統等多個應用場景中展現出強大的性能。</p>
+                </section>
 
-                <h2>研究方法</h2>
-                <p>本研究採用系統性文獻回顧方法...</p>
+                <section class="note-section">
+                    <h2>研究方法</h2>
+                    <p>本研究採用系統性文獻回顧方法，結合定量和定性分析，對近五年來發表的相關研究論文進行深入分析。重點關注了模型架構演進、預訓練策略改進、以及實際應用效果等方面。</p>
+                </section>
 
-                <h2>研究結果</h2>
-                <p>研究發現以下幾個關鍵點：</p>
-                <ul>
-                    <li>Transformer架構的優勢</li>
-                    <li>預訓練模型的重要性</li>
-                    <li>多模態融合的趨勢</li>
-                </ul>
+                <section class="note-section">
+                    <h2>研究結果</h2>
+                    <p>研究發現以下幾個關鍵點：</p>
+                    <ul>
+                        <li><strong>Transformer架構的優勢：</strong>相比傳統RNN模型，具有更好的並行計算能力和長距離依賴建模能力。</li>
+                        <li><strong>預訓練模型的重要性：</strong>大規模預訓練顯著提升了模型在下游任務的表現。</li>
+                        <li><strong>多模態融合趨勢：</strong>結合文本、圖像等多模態信息的模型展現出更強的理解能力。</li>
+                    </ul>
+                </section>
             </div>
         </article>
     </main>
