@@ -2,23 +2,19 @@
     "notes": [
         {
             "id": "001",
-            "title": "深度學習在自然語言處理中的應用研究",
-            "type": "人工智能",
+            "title": "金融市場歷史表現分析 (1990-2023)",
+            "type": "金融投資",
             "date": "2024-03-20",
             "url": "notes/entries/001.html",
-            "keywords": ["深度學習", "自然語言處理", "機器學習", "AI"],
+            "keywords": ["道瓊斯指數", "香港恆生指數", "黃金價格", "WTI原油", "市場分析"],
             "content": {
-                "text": "本研究探討了深度學習在自然語言處理領域的最新發展。通過分析Transformer架構的演進，我們發現大型語言模型在多個任務上都展現出優異的性能。",
+                "text": "分析四大金融市場（道瓊斯指數、香港恆生指數、黃金價格、WTI原油）在1990-2023年間的歷史表現，包括月度與年度漲跌幅度和上漲機率統計分析。",
                 "images": [
-                    {
-                        "url": "assets/images/notes/001/transformer-architecture.png",
-                        "caption": "圖1: Transformer 架構圖"
-                    },
-                    {
-                        "url": "assets/images/notes/001/performance-comparison.png",
-                        "caption": "圖2: 不同模型性能比較"
-                    }
-                ]
+//                    {
+//                        "url": "assets/images/notes/001/transformer-architecture.png",
+//                        "caption": "圖1: Transformer 架構圖"
+//                    }
+				]
             }
         }
     ],
