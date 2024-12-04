@@ -15,8 +15,6 @@
             "citation": "Wang, Y., Wang, P., Kong, H., & Wong, C. S. (2023). Tsunamis in Lingding Bay, China, caused by the 2022 Tonga volcanic eruption. Geophysical Journal International, 232(3), 2175-2185.",
             "url": "https://doi.org/10.1093/gji/ggac291",
             "tags": ["Seismology", "Tsunami Research", "Volcanic Effects"],
-            "citations": 15,
-            "downloads": 287,
             "publishedDate": "2022-07-31",
             "updatedDate": "2023-03-01"
         },
@@ -35,8 +33,6 @@
             "citation": "Li, Z., Kong, H., & Wong, C.-S. (2023). Neural Network-Based Identification of Cloud Types from Ground-Based Images of Cloud Layers. Applied Sciences, 13(7), 4470.",
             "url": "https://www.mdpi.com/2076-3417/13/7/4470",
             "tags": ["AI Applications", "Cloud Classification", "Image Processing"],
-            "citations": 8,
-            "downloads": 342,
             "publishedDate": "2023-03-31",
             "updatedDate": "2023-03-31"
         },
@@ -55,8 +51,6 @@
             "citation": "Vicente, D., Moggiano, N., Wang, Y., & Wong, C.-S. (2024). Analysis of Aviation Risks Due to Adverse Weather Conditions. Case Study: Pucallpa Accident 08/23/2005. Preprints, 2024051638.",
             "url": "https://doi.org/10.20944/preprints202405.1638.v1",
             "tags": ["Aviation Safety", "Weather Risks", "Case Study"],
-            "citations": 0,
-            "downloads": 45,
             "publishedDate": "2024-05-24",
             "updatedDate": "2024-05-24"
         },
@@ -75,8 +69,6 @@
             "citation": "Tian, H., Kong, H., & Wong, C. (2024). A Novel Stacking Ensemble Learning Approach for Predicting PM2.5 Levels in Dense Urban Environments Using Meteorological Variables: A Case Study in Macau. Applied Sciences, 14(12), 5062.",
             "url": "https://doi.org/10.3390/app14125062",
             "tags": ["Air Quality", "Machine Learning", "Urban Environment"],
-            "citations": 2,
-            "downloads": 178,
             "publishedDate": "2024-06-10",
             "updatedDate": "2024-06-10"
         },
@@ -95,8 +87,6 @@
             "citation": "Huang, C. Y., Wong, C. S., & Yeh, T. C. (2011). Extreme Rainfall Mechanisms Exhibited by Typhoon Morakot (2009). Terrestrial, Atmospheric & Oceanic Sciences, 22(6).",
             "url": "https://pdfs.semanticscholar.org/6637/c1b9334a899b87abd243f74d7e538d729fba.pdf",
             "tags": ["Typhoon Research", "Rainfall Analysis", "Weather Modeling"],
-            "citations": 89,
-            "downloads": 657,
             "publishedDate": "2011-12-01",
             "updatedDate": "2011-12-01"
         }
