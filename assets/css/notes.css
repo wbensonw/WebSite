@@ -751,3 +751,83 @@
 .slide-in {
     animation: slideIn 0.3s ease-out;
 }
+
+/* 筆記詳情頁面樣式 */
+.note-detail {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.note-detail-header {
+    padding: 2rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+
+.note-detail-header .note-title {
+    font-size: var(--text-3xl);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 1rem 0;
+    line-height: 1.2;
+}
+
+.note-detail .note-content {
+    padding: 2rem;
+}
+
+.note-detail .note-content h2 {
+    font-size: var(--text-2xl);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 2rem 0 1rem;
+}
+
+.note-detail .note-content p {
+    color: var(--text-secondary);
+    line-height: var(--leading-relaxed);
+    margin-bottom: 1rem;
+}
+
+.note-detail .note-content ul {
+    list-style: disc;
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.note-detail .note-content li {
+    color: var(--text-secondary);
+    line-height: var(--leading-relaxed);
+    margin-bottom: 0.5rem;
+}
+
+.image-gallery {
+    display: grid;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.image-gallery figure {
+    text-align: center;
+}
+
+.image-gallery img {
+    max-width: 100%;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.image-gallery figcaption {
+    color: var(--text-tertiary);
+    font-size: var(--text-sm);
+    margin-top: 0.5rem;
+}
+
+@media (min-width: 768px) {
+    .image-gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
