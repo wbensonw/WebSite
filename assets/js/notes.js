@@ -9,8 +9,6 @@ class NotesManager {
         this.itemsPerPage = 12;
         this.currentPage = 1;
         this.isLoading = false;
-        this.selectedKeywords = new Set();
-        this.activeNoteId = null;
     }
 
     // 初始化
@@ -43,6 +41,16 @@ class NotesManager {
         const categories = await this.loadData();
         const typeButtons = document.querySelector('.type-buttons');
         if (!typeButtons) return;
+
+        // 添加全部按鈕
+        const allButton = document.createElement('button');
+        allButton.className = 'type-btn active';
+        allButton.dataset.type = '全部';
+        allButton.innerHTML = `
+            <i class="ri-apps-line"></i>
+            全部
+        `;
+        typeButtons.appendChild(allButton);
 
         // 添加類型按鈕
         categories.forEach(category => {
@@ -90,62 +98,12 @@ class NotesManager {
         document.querySelector('.search-clear')?.addEventListener('click', () => {
             this.clearSearch();
         });
-
-        // 新建筆記按鈕
-        document.querySelector('.new-note-btn')?.addEventListener('click', () => {
-            this.openNoteModal();
-        });
-
-        // 筆記表單提交
-        document.querySelector('.note-form')?.addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.handleNoteSubmit();
-        });
-
-        // 關鍵詞輸入
-        const keywordsInput = document.getElementById('note-keywords');
-        if (keywordsInput) {
-            keywordsInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    this.addKeyword(e.target.value.trim());
-                    e.target.value = '';
-                }
-            });
-        }
-
-        // 模態框關閉按鈕
-        document.querySelectorAll('.modal-close').forEach(btn => {
-            btn.addEventListener('click', () => {
-                this.closeModals();
-            });
-        });
-
-        // ESC關閉模態框
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                this.closeModals();
-            }
-        });
-
-        // 圖片上傳
-        document.querySelector('.upload-btn')?.addEventListener('click', () => {
-            this.handleImageUpload();
-        });
-
-        // 快捷鍵
-        document.addEventListener('keydown', (e) => {
-            this.handleKeyboardShortcuts(e);
-        });
     }
 
     // 設置初始狀態
     setInitialState() {
-        // 恢復保存的視圖設置
         const savedView = localStorage.getItem('notesView') || 'grid';
         this.handleViewChange(savedView);
-
-        // 重置分頁
         this.currentPage = 1;
     }
 
@@ -171,12 +129,10 @@ class NotesManager {
         this.currentView = view;
         localStorage.setItem('notesView', view);
 
-        // 更新視圖按鈕狀態
         document.querySelectorAll('.view-btn').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.view === view);
         });
 
-        // 更新容器視圖
         const container = document.querySelector('.notes-container');
         if (container) {
             container.dataset.view = view;
@@ -199,20 +155,6 @@ class NotesManager {
             searchBox.value = '';
             this.searchTerm = '';
             this.render();
-        }
-    }
-
-    // 處理鍵盤快捷鍵
-    handleKeyboardShortcuts(event) {
-        // Ctrl/Cmd + / : 聚焦搜索框
-        if ((event.ctrlKey || event.metaKey) && event.key === '/') {
-            event.preventDefault();
-            document.querySelector('.search-box')?.focus();
-        }
-        // Ctrl/Cmd + N : 新建筆記
-        else if ((event.ctrlKey || event.metaKey) && event.key === 'n') {
-            event.preventDefault();
-            this.openNoteModal();
         }
     }
 
@@ -248,7 +190,7 @@ class NotesManager {
     // 創建筆記卡片
     createNoteCard(note) {
         return `
-            <div class="note-card" data-id="${note.id}">
+            <a href="../${note.url}" class="note-card">
                 <div class="note-card-content">
                     <div class="note-header">
                         <span class="note-type">${note.type}</span>
@@ -264,24 +206,14 @@ class NotesManager {
                         ${this.createPreviewContent(note)}
                     </div>
                 </div>
-                <div class="note-actions">
-                    <button class="btn-edit" onclick="event.stopPropagation(); notesManager.editNote('${note.id}')">
-                        <i class="ri-edit-line"></i>
-                        編輯
-                    </button>
-                    <button class="btn-delete" onclick="event.stopPropagation(); notesManager.confirmDelete('${note.id}')">
-                        <i class="ri-delete-bin-line"></i>
-                        刪除
-                    </button>
-                </div>
-            </div>
+            </a>
         `;
     }
 
     // 創建筆記列表項
     createNoteListItem(note) {
         return `
-            <div class="note-list-item" data-id="${note.id}">
+            <a href="../${note.url}" class="note-list-item">
                 <div class="note-meta">
                     <span class="note-type">${note.type}</span>
                     <span class="note-date">${formatDate(note.date)}</span>
@@ -294,15 +226,7 @@ class NotesManager {
                         ).join('')}
                     </div>
                 </div>
-                <div class="note-actions">
-                    <button class="btn-edit" onclick="event.stopPropagation(); notesManager.editNote('${note.id}')">
-                        <i class="ri-edit-line"></i>
-                    </button>
-                    <button class="btn-delete" onclick="event.stopPropagation(); notesManager.confirmDelete('${note.id}')">
-                        <i class="ri-delete-bin-line"></i>
-                    </button>
-                </div>
-            </div>
+            </a>
         `;
     }
 
@@ -386,15 +310,11 @@ class NotesManager {
         const paginationContainer = document.querySelector('.pagination');
         if (!container) return;
 
-        // 過濾和排序筆記
         this.filteredNotes = this.sortNotes(this.filterNotes());
-
-        // 計算分頁
         const startIndex = (this.currentPage - 1) * this.itemsPerPage;
         const endIndex = startIndex + this.itemsPerPage;
         const paginatedNotes = this.filteredNotes.slice(startIndex, endIndex);
 
-        // 渲染筆記
         if (this.filteredNotes.length === 0) {
             container.innerHTML = `
                 <div class="no-results">
@@ -412,12 +332,10 @@ class NotesManager {
                 this.createNoteListItem(note))
             .join('');
 
-        // 渲染分頁
         if (paginationContainer) {
             paginationContainer.innerHTML = this.createPagination();
         }
 
-        // 添加動畫效果
         requestAnimationFrame(() => {
             const items = container.children;
             Array.from(items).forEach((item, index) => {
@@ -436,238 +354,6 @@ class NotesManager {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // 打開筆記模態框
-    openNoteModal(noteId = null) {
-        const modal = document.querySelector('.note-modal');
-        const form = modal.querySelector('.note-form');
-        const title = modal.querySelector('.modal-title');
-
-        this.activeNoteId = noteId;
-        this.selectedKeywords.clear();
-
-        if (noteId) {
-            // 編輯模式
-            const note = this.notes.find(n => n.id === noteId);
-            if (!note) return;
-
-            title.textContent = '編輯筆記';
-            form.elements['note-title'].value = note.title;
-            form.elements['note-type'].value = note.type;
-            form.elements['note-content'].value = note.content.text;
-            note.keywords.forEach(keyword => this.addKeyword(keyword));
-            this.renderImagePreviews(note.content.images || []);
-        } else {
-            // 新建模式
-            title.textContent = '新建筆記';
-            form.reset();
-            this.renderImagePreviews([]);
-        }
-
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-
-    // 關閉所有模態框
-    closeModals() {
-        document.querySelectorAll('.note-modal, .confirm-modal').forEach(modal => {
-            modal.classList.remove('active');
-        });
-        document.body.style.overflow = '';
-        this.activeNoteId = null;
-        this.selectedKeywords.clear();
-    }
-
-    // 添加關鍵詞
-    addKeyword(keyword) {
-        if (!keyword || this.selectedKeywords.has(keyword)) return;
-
-        this.selectedKeywords.add(keyword);
-        this.renderKeywords();
-    }
-
-    // 移除關鍵詞
-    removeKeyword(keyword) {
-        this.selectedKeywords.delete(keyword);
-        this.renderKeywords();
-    }
-
-    // 渲染關鍵詞標籤
-    renderKeywords() {
-        const container = document.querySelector('.keywords-tags');
-        if (!container) return;
-
-        container.innerHTML = Array.from(this.selectedKeywords)
-            .map(keyword => `
-                <span class="keyword">
-                    ${keyword}
-                    <button onclick="notesManager.removeKeyword('${keyword}')">
-                        <i class="ri-close-line"></i>
-                    </button>
-                </span>
-            `).join('');
-    }
-
-    // 處理圖片上傳
-    handleImageUpload() {
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = 'image/*';
-        input.multiple = true;
-
-        input.onchange = (e) => {
-            const files = Array.from(e.target.files);
-            this.processImages(files);
-        };
-
-        input.click();
-    }
-
-    // 處理圖片文件
-    async processImages(files) {
-        const preview = document.querySelector('.image-preview');
-        if (!preview) return;
-
-        for (const file of files) {
-            if (!file.type.startsWith('image/')) continue;
-
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                preview.innerHTML += `
-                    <div class="image-item">
-                        <img src="${e.target.result}" alt="預覽圖片">
-                        <button onclick="this.parentElement.remove()">
-                            <i class="ri-close-line"></i>
-                        </button>
-                    </div>
-                `;
-            };
-            reader.readAsDataURL(file);
-        }
-    }
-
-    // 渲染圖片預覽
-    renderImagePreviews(images) {
-        const preview = document.querySelector('.image-preview');
-        if (!preview) return;
-
-        preview.innerHTML = images.map(img => `
-            <div class="image-item">
-                <img src="../${img.url}" alt="${img.caption}">
-                <button onclick="this.parentElement.remove()">
-                    <i class="ri-close-line"></i>
-                </button>
-            </div>
-        `).join('');
-    }
-
-    // 處理筆記表單提交
-    handleNoteSubmit() {
-        const form = document.querySelector('.note-form');
-        if (!form) return;
-
-        const noteData = {
-            title: form.elements['note-title'].value,
-            type: form.elements['note-type'].value,
-            keywords: Array.from(this.selectedKeywords),
-            content: {
-                text: form.elements['note-content'].value,
-                images: this.getImageData()
-            },
-            date: new Date().toISOString()
-        };
-
-        if (this.activeNoteId) {
-            this.updateNote(this.activeNoteId, noteData);
-        } else {
-            this.addNote(noteData);
-        }
-
-        this.closeModals();
-        this.render();
-    }
-
-    // 獲取圖片數據
-    getImageData() {
-        const preview = document.querySelector('.image-preview');
-        if (!preview) return [];
-
-        return Array.from(preview.querySelectorAll('.image-item img'))
-            .map((img, index) => ({
-                url: img.src,
-                caption: `圖片 ${index + 1}`
-            }));
-    }
-
-    // 添加新筆記
-    addNote(noteData) {
-        const newNote = {
-            id: generateUniqueId(),
-            ...noteData
-        };
-
-        if (!this.validateNote(newNote)) {
-            this.showError('無效的筆記數據');
-            return false;
-        }
-
-        this.notes.unshift(newNote);
-        this.showSuccess('筆記創建成功');
-        return true;
-    }
-
-    // 更新筆記
-    updateNote(id, updates) {
-        const index = this.notes.findIndex(n => n.id === id);
-        if (index === -1) {
-            this.showError('找不到指定的筆記');
-            return false;
-        }
-
-        this.notes[index] = { ...this.notes[index], ...updates };
-        this.showSuccess('筆記更新成功');
-        return true;
-    }
-
-    // 編輯筆記
-    editNote(id) {
-        this.openNoteModal(id);
-    }
-
-    // 確認刪除
-    confirmDelete(id) {
-        const modal = document.querySelector('.confirm-modal');
-        if (!modal) return;
-
-        const confirmBtn = modal.querySelector('[data-action="confirm"]');
-        confirmBtn.onclick = () => this.deleteNote(id);
-
-        modal.classList.add('active');
-    }
-
-    // 刪除筆記
-    deleteNote(id) {
-        const index = this.notes.findIndex(n => n.id === id);
-        if (index === -1) {
-            this.showError('找不到指定的筆記');
-            return false;
-        }
-
-        this.notes.splice(index, 1);
-        this.closeModals();
-        this.render();
-        this.showSuccess('筆記已刪除');
-        return true;
-    }
-
-    // 驗證筆記數據
-    validateNote(note) {
-        const requiredFields = ['id', 'title', 'type', 'date', 'keywords', 'content'];
-        return requiredFields.every(field => note[field]) && 
-               Array.isArray(note.keywords) &&
-               typeof note.content === 'object' &&
-               typeof note.content.text === 'string';
-    }
-
     // 顯示加載狀態
     showLoading() {
         this.isLoading = true;
@@ -684,11 +370,6 @@ class NotesManager {
         if (loader) {
             loader.classList.remove('active');
         }
-    }
-
-    // 顯示成功信息
-    showSuccess(message) {
-        showNotification(message, 'success');
     }
 
     // 顯示錯誤信息
