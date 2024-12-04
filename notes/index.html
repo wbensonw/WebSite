@@ -1,65 +1,55 @@
 <!DOCTYPE html>
-<html lang="zh-TW" data-theme="light">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#FF9966">
     <title>研究資訊平台 - 研究筆記</title>
-	<script>
-        // 檢查並應用保存的主題設置
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', savedTheme);
-    </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/notes.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 <body>
+    <!-- 頁頭 -->
     <div id="header-placeholder"></div>
 
-    <div class="container">
+    <!-- 主要內容 -->
+    <main class="container">
+        <!-- 頁頭 -->
         <header class="notes-header">
             <div class="header-content">
                 <h1 class="notes-title">研究筆記</h1>
                 <p class="notes-subtitle">記錄和管理您的研究筆記</p>
             </div>
-            <div class="header-actions">
-                <button class="btn btn-primary new-note-btn">
-                    <i class="ri-add-line"></i>
-                    新建筆記
-                </button>
-            </div>
         </header>
 
+        <!-- 工具欄 -->
         <div class="tools-container">
+            <!-- 搜索框 -->
             <div class="search-container">
-                <i class="ri-search-line search-icon"></i>
-                <input type="search" class="search-box" placeholder="搜尋筆記..." aria-label="搜尋筆記">
-                <button class="search-clear" aria-label="清除搜索">
+                <i class="search-icon ri-search-line"></i>
+                <input type="text" class="search-box" placeholder="搜索筆記...">
+                <button class="search-clear">
                     <i class="ri-close-line"></i>
                 </button>
             </div>
 
+            <!-- 視圖切換 -->
             <div class="view-toggle">
-                <button class="view-btn active" data-view="grid" aria-label="網格視圖">
-                    <i class="ri-grid-fill"></i>
+                <button class="view-btn" data-view="grid">
+                    <i class="ri-grid-line"></i>
                 </button>
-                <button class="view-btn" data-view="list" aria-label="列表視圖">
+                <button class="view-btn" data-view="list">
                     <i class="ri-list-check"></i>
                 </button>
             </div>
         </div>
 
+        <!-- 過濾器 -->
         <div class="notes-filter">
-            <div class="type-buttons">
-                <button class="type-btn active" data-type="全部">
-                    <i class="ri-folder-line"></i>
-                    全部
-                </button>
-                <!-- 由 JavaScript 動態生成其他類型按鈕 -->
-            </div>
+            <!-- 類型按鈕組 -->
+            <div class="type-buttons"></div>
 
+            <!-- 排序選擇 -->
             <div class="filter-group">
                 <label for="sort-select" class="filter-label">排序：</label>
                 <select id="sort-select" class="filter-select">
@@ -70,90 +60,23 @@
             </div>
         </div>
 
-        <main class="notes-container" data-view="grid">
-            <!-- 由 JavaScript 動態生成 -->
-        </main>
+        <!-- 筆記列表 -->
+        <div class="notes-container" data-view="grid"></div>
 
-        <!-- 分頁控制 -->
-        <div class="pagination">
-            <!-- 由 JavaScript 動態生成 -->
-        </div>
-    </div>
+        <!-- 分頁 -->
+        <div class="pagination"></div>
+    </main>
 
+    <!-- 頁尾 -->
     <div id="footer-placeholder"></div>
 
-    <!-- 新建/編輯筆記彈窗 -->
-    <div class="note-modal" aria-modal="true" role="dialog">
-        <div class="modal-content">
-            <button class="modal-close" aria-label="關閉">
-                <i class="ri-close-line"></i>
-            </button>
-            <div class="modal-body">
-                <h2 class="modal-title">新建筆記</h2>
-                <form class="note-form">
-                    <div class="form-group">
-                        <label for="note-title">標題</label>
-                        <input type="text" id="note-title" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="note-type">類型</label>
-                        <select id="note-type" required>
-                            <option value="">選擇類型</option>
-                            <!-- 由 JavaScript 動態生成 -->
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="note-keywords">關鍵詞</label>
-                        <div class="keywords-input">
-                            <div class="keywords-tags"></div>
-                            <input type="text" id="note-keywords" placeholder="輸入關鍵詞後按 Enter">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="note-content">內容</label>
-                        <textarea id="note-content" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>圖片</label>
-                        <div class="image-upload">
-                            <button type="button" class="upload-btn">
-                                <i class="ri-image-add-line"></i>
-                                添加圖片
-                            </button>
-                            <div class="image-preview"></div>
-                        </div>
-                    </div>
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" data-action="cancel">
-                            取消
-                        </button>
-                        <button type="submit" class="btn btn-primary">
-                            保存
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- 刪除確認彈窗 -->
-    <div class="confirm-modal" role="dialog">
-        <div class="modal-content">
-            <h3>確認刪除</h3>
-            <p>確定要刪除這個筆記嗎？此操作無法撤銷。</p>
-            <div class="modal-actions">
-                <button class="btn btn-secondary" data-action="cancel">取消</button>
-                <button class="btn btn-danger" data-action="confirm">刪除</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- 加載提示 -->
+    <!-- 載入中遮罩 -->
     <div class="loading-overlay">
         <div class="loading-spinner"></div>
-        <span>載入中...</span>
+        <p>載入中...</p>
     </div>
 
+    <!-- 腳本 -->
     <script src="../assets/js/main.js"></script>
     <script src="../assets/js/notes.js"></script>
 </body>
