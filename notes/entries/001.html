@@ -1,111 +1,73 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="深度學習在自然語言處理中的應用研究">
-    <title>研究資訊平台 - 深度學習在自然語言處理中的應用研究</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <title>深度學習在自然語言處理中的應用研究 - 研究筆記</title>
     <link rel="stylesheet" href="../../assets/css/main.css">
     <link rel="stylesheet" href="../../assets/css/notes.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 <body>
+    <!-- 頁頭 -->
     <div id="header-placeholder"></div>
 
-    <div class="container">
-        <div class="note-content-page">
-            <div class="note-content-header">
-                <a href="../" class="note-content-back">
-                    <i class="ri-arrow-left-line"></i>
-                    返回筆記列表
-                </a>
-            </div>
+    <!-- 主要內容 -->
+    <main class="container">
+        <article class="note-detail">
+            <header class="note-detail-header">
+                <div class="note-meta">
+                    <span class="note-type">人工智能</span>
+                    <time class="note-date">2024-03-20</time>
+                </div>
+                <h1 class="note-title">深度學習在自然語言處理中的應用研究</h1>
+                <div class="note-keywords">
+                    <span class="keyword">深度學習</span>
+                    <span class="keyword">自然語言處理</span>
+                    <span class="keyword">機器學習</span>
+                    <span class="keyword">AI</span>
+                </div>
+            </header>
 
-            <div class="note-section">
-                <div class="note-section-header">
-                    <div class="note-meta-info">
-                        <span class="note-type">文獻研究</span>
-                        <span class="note-date">2024-03-20</span>
-                    </div>
-                    <h1 class="note-title">深度學習在自然語言處理中的應用研究</h1>
-                    <div class="note-keywords">
-                        <span class="keyword">深度學習</span>
-                        <span class="keyword">自然語言處理</span>
-                        <span class="keyword">機器學習</span>
-                        <span class="keyword">AI</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="note-section">
-                <div class="note-section-header">
-                    <h2 class="section-title">
-                        <i class="ri-file-text-line"></i>
-                        研究背景
-                    </h2>
-                </div>
-                <div class="note-section-content">
-                    <p>本研究探討了深度學習在自然語言處理領域的最新發展...</p>
-                </div>
-            </div>
-
-            <div class="note-section">
-                <div class="note-section-header">
-                    <h2 class="section-title">
-                        <i class="ri-flask-line"></i>
-                        研究方法
-                    </h2>
-                </div>
-                <div class="note-section-content">
-                    <figure class="note-image">
+            <div class="note-content">
+                <p>本研究探討了深度學習在自然語言處理領域的最新發展。通過分析Transformer架構的演進，我們發現大型語言模型在多個任務上都展現出優異的性能。</p>
+                
+                <div class="image-gallery">
+                    <figure>
                         <img src="../../assets/images/notes/001/transformer-architecture.png" 
-                             alt="Transformer 架構圖">
+                             alt="Transformer 架構圖"
+                             onerror="handleImageError(this)">
                         <figcaption>圖1: Transformer 架構圖</figcaption>
                     </figure>
-                    <p>通過分析Transformer架構的演進，我們發現...</p>
-                </div>
-            </div>
-
-            <div class="note-section">
-                <div class="note-section-header">
-                    <h2 class="section-title">
-                        <i class="ri-bar-chart-line"></i>
-                        研究結果
-                    </h2>
-                </div>
-                <div class="note-section-content">
-                    <figure class="note-image">
+                    <figure>
                         <img src="../../assets/images/notes/001/performance-comparison.png" 
-                             alt="性能比較圖">
+                             alt="不同模型性能比較"
+                             onerror="handleImageError(this)">
                         <figcaption>圖2: 不同模型性能比較</figcaption>
                     </figure>
-                    <p>研究結果顯示，在以下幾個方面有重要發現：</p>
-                    <ul class="findings-list">
-                        <li>發現一...</li>
-                        <li>發現二...</li>
-                        <li>發現三...</li>
-                    </ul>
                 </div>
-            </div>
 
-            <div class="note-section">
-                <div class="note-section-header">
-                    <h2 class="section-title">
-                        <i class="ri-lightbulb-line"></i>
-                        結論
-                    </h2>
-                </div>
-                <div class="note-section-content">
-                    <p>基於以上研究結果，我們得出以下結論：</p>
-                    <p>結論內容...</p>
-                </div>
-            </div>
-        </div>
-    </div>
+                <h2>研究背景</h2>
+                <p>近年來，深度學習技術在自然語言處理領域取得了突破性進展...</p>
 
+                <h2>研究方法</h2>
+                <p>本研究採用系統性文獻回顧方法...</p>
+
+                <h2>研究結果</h2>
+                <p>研究發現以下幾個關鍵點：</p>
+                <ul>
+                    <li>Transformer架構的優勢</li>
+                    <li>預訓練模型的重要性</li>
+                    <li>多模態融合的趨勢</li>
+                </ul>
+            </div>
+        </article>
+    </main>
+
+    <!-- 頁尾 -->
     <div id="footer-placeholder"></div>
 
+    <!-- 腳本 -->
     <script src="../../assets/js/main.js"></script>
 </body>
 </html>
