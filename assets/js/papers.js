@@ -393,16 +393,6 @@ class PapersManager {
                     <h3>摘要</h3>
                     <p>${paper.abstract}</p>
                 </div>
-//                <div class="modal-paper-stats">
-//                    <div class="stat-item">
-//                        <i class="ri-chat-quote-line"></i>
-//                        <span>${paper.citations} 引用</span>
-//                    </div>
-//                    <div class="stat-item">
-//                        <i class="ri-download-line"></i>
-//                        <span>${paper.downloads} 下載</span>
-//                    </div>
-//                </div>
                 <div class="modal-paper-dates">
                     <p>發布日期：${formatDate(paper.publishedDate)}</p>
                     <p>最後更新：${formatDate(paper.updatedDate)}</p>
