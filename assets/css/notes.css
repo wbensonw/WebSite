@@ -831,3 +831,59 @@
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+/* 返回按鈕樣式 */
+.back-to-notes {
+    margin-bottom: 1rem;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+    transition: var(--transition-base);
+}
+
+.back-link:hover {
+    background: var(--surface-variant);
+    color: var(--primary);
+}
+
+.back-link i {
+    font-size: var(--text-xl);
+}
+
+/* 筆記卡片按鈕 */
+.note-card-actions {
+    margin-top: 1rem;
+    text-align: right;
+}
+
+.note-card-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: var(--transition-base);
+}
+
+.note-card-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.note-card-btn i {
+    font-size: var(--text-lg);
+}
