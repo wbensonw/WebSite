@@ -324,13 +324,16 @@ function generateHeatmap(data) {
     let zMin, zMax;
     const marketName = document.querySelector('h1').textContent;
     
-    if (marketName.includes('WTI原油')) {
-        zMin = -100;
-        zMax = 100;
-    } else {
-        zMin = -50;
-        zMax = 50;
-    }
+//    if (marketName.includes('WTI原油')) {
+//        zMin = -100;
+//        zMax = 100;
+//    } else {
+//        zMin = -50;
+//        zMax = 50;
+//    }
+
+    zMin = -50;
+    zMax = 50;
     
     const heatmapData = [{
         z: returns,
