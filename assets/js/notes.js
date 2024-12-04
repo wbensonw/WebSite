@@ -42,15 +42,8 @@ class NotesManager {
         const typeButtons = document.querySelector('.type-buttons');
         if (!typeButtons) return;
 
-        // 添加全部按鈕
-        const allButton = document.createElement('button');
-        allButton.className = 'type-btn active';
-        allButton.dataset.type = '全部';
-        allButton.innerHTML = `
-            <i class="ri-apps-line"></i>
-            全部
-        `;
-        typeButtons.appendChild(allButton);
+        // 清空現有按鈕
+        typeButtons.innerHTML = '';
 
         // 添加類型按鈕
         categories.forEach(category => {
@@ -63,6 +56,13 @@ class NotesManager {
             `;
             typeButtons.appendChild(button);
         });
+
+        // 初始化第一個按鈕為活動狀態
+        const firstBtn = typeButtons.querySelector('.type-btn');
+        if (firstBtn) {
+            firstBtn.classList.add('active');
+            this.currentType = firstBtn.dataset.type;
+        }
     }
 
     // 設置事件監聽器
@@ -190,7 +190,7 @@ class NotesManager {
     // 創建筆記卡片
     createNoteCard(note) {
         return `
-            <a href="../${note.url}" class="note-card">
+            <div class="note-card">
                 <div class="note-card-content">
                     <div class="note-header">
                         <span class="note-type">${note.type}</span>
@@ -205,8 +205,14 @@ class NotesManager {
                     <div class="note-preview">
                         ${this.createPreviewContent(note)}
                     </div>
+                    <div class="note-card-actions">
+                        <a href="../${note.url}" class="note-card-btn">
+                            <i class="ri-article-line"></i>
+                            查看詳情
+                        </a>
+                    </div>
                 </div>
-            </a>
+            </div>
         `;
     }
 
