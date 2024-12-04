@@ -83,15 +83,11 @@ class PapersManager {
             this.handleYearFilter(e.target.value);
         });
 
-        document.getElementById('tag-filter')?.addEventListener('change', (e) => {
-            this.handleTagFilter(e.target.value);
-        });
-
-        // 論文點擊
+        // 論文點擊（用事件委派處理兩種視圖）
         document.addEventListener('click', (e) => {
-            const paperCard = e.target.closest('.paper-card');
-            if (paperCard) {
-                this.showPaperDetails(paperCard.dataset.id);
+            const paperElement = e.target.closest('.paper-card, .paper-list-item');
+            if (paperElement && !e.target.closest('.btn-citation, .btn-download')) {
+                this.showPaperDetails(paperElement.dataset.id);
             }
         });
 
@@ -110,11 +106,8 @@ class PapersManager {
 
     // 設置初始狀態
     setInitialState() {
-        // 恢復保存的視圖設置
         const savedView = localStorage.getItem('papersView') || 'card';
         this.handleViewChange(savedView);
-
-        // 重置分頁
         this.currentPage = 1;
     }
 
@@ -158,13 +151,6 @@ class PapersManager {
         this.render();
     }
 
-    // 處理標籤過濾
-    handleTagFilter(tag) {
-        this.currentTag = tag;
-        this.currentPage = 1;
-        this.render();
-    }
-
     // 過濾論文
     filterPapers() {
         return this.papers.filter(paper => {
@@ -188,8 +174,6 @@ class PapersManager {
                     return a.year - b.year;
                 case 'title':
                     return a.title.localeCompare(b.title);
-                case 'citations':
-                    return b.citations - a.citations;
                 default:
                     return 0;
             }
@@ -348,26 +332,6 @@ class PapersManager {
         });
     }
 
-    // 頁面跳轉
-    goToPage(page) {
-        this.currentPage = page;
-        this.render();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // 複製引用格式
-    async copyCitation(paperId) {
-        const paper = this.papers.find(p => p.id === paperId);
-        if (!paper) return;
-
-        const success = await copyToClipboard(paper.citation);
-        if (success) {
-            showNotification('已複製引用格式');
-        } else {
-            showNotification('複製失敗', 'error');
-        }
-    }
-
     // 顯示論文詳情
     showPaperDetails(paperId) {
         const paper = this.papers.find(p => p.id === paperId);
@@ -421,6 +385,26 @@ class PapersManager {
             modal.classList.remove('active');
             document.body.style.overflow = '';
         }
+    }
+
+    // 複製引用格式
+    async copyCitation(paperId) {
+        const paper = this.papers.find(p => p.id === paperId);
+        if (!paper) return;
+
+        const success = await copyToClipboard(paper.citation);
+        if (success) {
+            showNotification('已複製引用格式');
+        } else {
+            showNotification('複製失敗', 'error');
+        }
+    }
+
+    // 頁面跳轉
+    goToPage(page) {
+        this.currentPage = page;
+        this.render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // 顯示加載狀態
