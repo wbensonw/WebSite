@@ -51,18 +51,6 @@ class PapersManager {
                 `).join('')}
             `;
         }
-
-        // 設置標籤過濾器
-        const tags = [...new Set(this.papers.flatMap(paper => paper.tags))].sort();
-        const tagFilter = document.getElementById('tag-filter');
-        if (tagFilter) {
-            tagFilter.innerHTML = `
-                <option value="all">全部</option>
-                ${tags.map(tag => `
-                    <option value="${tag}">${tag}</option>
-                `).join('')}
-            `;
-        }
     }
 
     // 設置事件監聽器
@@ -181,13 +169,12 @@ class PapersManager {
     filterPapers() {
         return this.papers.filter(paper => {
             const matchesYear = this.currentYear === 'all' || paper.year.toString() === this.currentYear;
-            const matchesTag = this.currentTag === 'all' || paper.tags.includes(this.currentTag);
             const matchesSearch = !this.searchTerm || 
                                 paper.title.toLowerCase().includes(this.searchTerm) || 
                                 paper.authors.join(' ').toLowerCase().includes(this.searchTerm) || 
                                 paper.abstract.toLowerCase().includes(this.searchTerm) ||
                                 paper.keywords.join(' ').toLowerCase().includes(this.searchTerm);
-            return matchesYear && matchesTag && matchesSearch;
+            return matchesYear && matchesSearch;
         });
     }
 
@@ -216,10 +203,6 @@ class PapersManager {
                 <div class="paper-card-content">
                     <div class="paper-meta">
                         <span class="paper-year">${paper.year}</span>
-                        <span class="paper-citations">
-                            <i class="ri-chat-quote-line"></i>
-                            ${paper.citations}
-                        </span>
                     </div>
                     <h2 class="paper-title">${paper.title}</h2>
                     <p class="paper-authors">${paper.authors.join(', ')}</p>
