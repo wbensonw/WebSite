@@ -3,10 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>深度學習在自然語言處理中的應用研究 - 研究筆記</title>
+    <title>金融市場歷史表現分析 (1990-2023) - 研究筆記</title>
     <link rel="stylesheet" href="../../assets/css/main.css">
     <link rel="stylesheet" href="../../assets/css/notes.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        .button-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .button {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-full);
+            background: var(--surface);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-base);
+        }
+        .button:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        .button.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        #heatmap {
+            margin-bottom: 2rem;
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 1rem;
+        }
+        #statsTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+        }
+        #statsTable th, #statsTable td {
+            padding: 0.75rem;
+            text-align: right;
+            border: 1px solid var(--border);
+        }
+        #statsTable th:first-child, #statsTable td:first-child {
+            text-align: left;
+            position: sticky;
+            left: 0;
+            background: var(--surface);
+            z-index: 1;
+        }
+        .positive { color: #4CAF50; }
+        .negative { color: #F44336; }
+        #analysis-container {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        #analysis-container h3 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        #analysis-container div {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .table-container {
+            overflow-x: auto;
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            margin-bottom: 2rem;
+        }
+    </style>
 </head>
 <body>
     <!-- 頁頭 -->
@@ -24,58 +98,35 @@
         <article class="note-detail">
             <header class="note-detail-header">
                 <div class="note-meta">
-                    <span class="note-type">人工智能</span>
+                    <span class="note-type">金融投資</span>
                     <time class="note-date">2024-03-20</time>
                 </div>
-                <h1 class="note-title">深度學習在自然語言處理中的應用研究</h1>
+                <h1 class="note-title">金融市場歷史表現分析 (1990-2023)</h1>
                 <div class="note-keywords">
-                    <span class="keyword">深度學習</span>
-                    <span class="keyword">自然語言處理</span>
-                    <span class="keyword">機器學習</span>
-                    <span class="keyword">AI</span>
+                    <span class="keyword">道瓊斯指數</span>
+                    <span class="keyword">香港恆生指數</span>
+                    <span class="keyword">黃金價格</span>
+                    <span class="keyword">WTI原油</span>
+                    <span class="keyword">市場分析</span>
                 </div>
             </header>
 
             <div class="note-content">
-                <div class="note-abstract">
-                    <h2>摘要</h2>
-                    <p>本研究探討了深度學習在自然語言處理領域的最新發展。通過分析Transformer架構的演進，我們發現大型語言模型在多個任務上都展現出優異的性能。</p>
-                </div>
-                
-                <div class="image-gallery">
-                    <figure>
-                        <img src="../../assets/images/notes/001/transformer-architecture.png" 
-                             alt="Transformer 架構圖"
-                             onerror="handleImageError(this)">
-                        <figcaption>圖1: Transformer 架構圖</figcaption>
-                    </figure>
-                    <figure>
-                        <img src="../../assets/images/notes/001/performance-comparison.png" 
-                             alt="不同模型性能比較"
-                             onerror="handleImageError(this)">
-                        <figcaption>圖2: 不同模型性能比較</figcaption>
-                    </figure>
+                <div class="button-container">
+                    <button class="button" onclick="showData('dow')">道瓊斯指數</button>
+                    <button class="button" onclick="showData('hsi')">香港恆生指數</button>
+                    <button class="button" onclick="showData('gold')">黃金價格</button>
+                    <button class="button" onclick="showData('wti')">WTI原油</button>
+                    <button class="button" onclick="showData('summary')">綜合</button>
                 </div>
 
-                <section class="note-section">
-                    <h2>研究背景</h2>
-                    <p>近年來，深度學習技術在自然語言處理領域取得了突破性進展。特別是Transformer架構的提出，為大規模語言模型的發展奠定了基礎。這些模型在機器翻譯、文本生成、問答系統等多個應用場景中展現出強大的性能。</p>
-                </section>
+                <div id="heatmap"></div>
 
-                <section class="note-section">
-                    <h2>研究方法</h2>
-                    <p>本研究採用系統性文獻回顧方法，結合定量和定性分析，對近五年來發表的相關研究論文進行深入分析。重點關注了模型架構演進、預訓練策略改進、以及實際應用效果等方面。</p>
-                </section>
+                <div class="table-container">
+                    <table id="statsTable"></table>
+                </div>
 
-                <section class="note-section">
-                    <h2>研究結果</h2>
-                    <p>研究發現以下幾個關鍵點：</p>
-                    <ul>
-                        <li><strong>Transformer架構的優勢：</strong>相比傳統RNN模型，具有更好的並行計算能力和長距離依賴建模能力。</li>
-                        <li><strong>預訓練模型的重要性：</strong>大規模預訓練顯著提升了模型在下游任務的表現。</li>
-                        <li><strong>多模態融合趨勢：</strong>結合文本、圖像等多模態信息的模型展現出更強的理解能力。</li>
-                    </ul>
-                </section>
+                <div id="analysis-container"></div>
             </div>
         </article>
     </main>
@@ -85,5 +136,6 @@
 
     <!-- 腳本 -->
     <script src="../../assets/js/main.js"></script>
+    <script src="test.js"></script>
 </body>
 </html>
