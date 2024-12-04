@@ -16,7 +16,7 @@ class NotesManager {
         this.showLoading();
         try {
             await this.loadData();
-            this.setupTypeFilter();
+            await this.setupTypeFilter();
             this.setupEventListeners();
             this.setInitialState();
             this.render();
@@ -45,6 +45,16 @@ class NotesManager {
         // 清空現有按鈕
         typeButtons.innerHTML = '';
 
+        // 添加"全部"按鈕
+        const allButton = document.createElement('button');
+        allButton.className = 'type-btn active';
+        allButton.dataset.type = '全部';
+        allButton.innerHTML = `
+            <i class="ri-apps-line"></i>
+            全部
+        `;
+        typeButtons.appendChild(allButton);
+
         // 添加類型按鈕
         categories.forEach(category => {
             const button = document.createElement('button');
@@ -57,12 +67,8 @@ class NotesManager {
             typeButtons.appendChild(button);
         });
 
-        // 初始化第一個按鈕為活動狀態
-        const firstBtn = typeButtons.querySelector('.type-btn');
-        if (firstBtn) {
-            firstBtn.classList.add('active');
-            this.currentType = firstBtn.dataset.type;
-        }
+        // 初始化為"全部"
+        this.currentType = '全部';
     }
 
     // 設置事件監聽器
@@ -161,8 +167,7 @@ class NotesManager {
     // 過濾筆記
     filterNotes() {
         return this.notes.filter(note => {
-            const matchesType = this.currentType === '全部' || 
-                              note.type === this.currentType;
+            const matchesType = this.currentType === '全部' || note.type === this.currentType;
             const matchesSearch = !this.searchTerm || 
                                 note.title.toLowerCase().includes(this.searchTerm) || 
                                 note.content.text.toLowerCase().includes(this.searchTerm) || 
@@ -219,7 +224,7 @@ class NotesManager {
     // 創建筆記列表項
     createNoteListItem(note) {
         return `
-            <a href="../${note.url}" class="note-list-item">
+            <div class="note-list-item">
                 <div class="note-meta">
                     <span class="note-type">${note.type}</span>
                     <span class="note-date">${formatDate(note.date)}</span>
@@ -232,7 +237,13 @@ class NotesManager {
                         ).join('')}
                     </div>
                 </div>
-            </a>
+                <div class="note-card-actions">
+                    <a href="../${note.url}" class="note-card-btn">
+                        <i class="ri-article-line"></i>
+                        查看詳情
+                    </a>
+                </div>
+            </div>
         `;
     }
 
