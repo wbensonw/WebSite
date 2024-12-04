@@ -3,8 +3,9 @@
         {
             "id": "001",
             "title": "深度學習在自然語言處理中的應用研究",
-            "type": "文獻研究",
+            "type": "人工智能",
             "date": "2024-03-20",
+            "url": "entries/001.html",
             "keywords": ["深度學習", "自然語言處理", "機器學習", "AI"],
             "content": {
                 "text": "本研究探討了深度學習在自然語言處理領域的最新發展。通過分析Transformer架構的演進，我們發現大型語言模型在多個任務上都展現出優異的性能。",
@@ -17,93 +18,33 @@
                         "url": "assets/images/notes/001/performance-comparison.png",
                         "caption": "圖2: 不同模型性能比較"
                     }
-                ],
-                "sections": [
-                    {
-                        "title": "研究背景",
-                        "content": "近年來，深度學習技術在自然語言處理領域取得了突破性進展..."
-                    },
-                    {
-                        "title": "研究方法",
-                        "content": "本研究採用系統性文獻回顧方法..."
-                    },
-                    {
-                        "title": "研究結果",
-                        "content": "研究發現以下幾個關鍵點：\n1. Transformer架構的優勢\n2. 預訓練模型的重要性\n3. 多模態融合的趨勢"
-                    }
                 ]
-            },
-            "references": [
-                {
-                    "author": "Vaswani et al.",
-                    "year": 2017,
-                    "title": "Attention is All You Need",
-                    "url": "https://example.com/paper1"
-                }
-            ]
-        },
-        {
-            "id": "002",
-            "title": "實驗設計：神經網絡在圖像識別中的應用",
-            "type": "實驗記錄",
-            "date": "2024-03-18",
-            "keywords": ["實驗設計", "神經網絡", "圖像識別", "CNN"],
-            "content": {
-                "text": "實驗目的：驗證改進後的CNN架構在低光照圖像識別任務中的表現。實驗設置包括以下步驟：1. 數據預處理 2. 模型訓練 3. 性能評估",
-                "images": [
-                    {
-                        "url": "assets/images/notes/002/experiment-setup.png",
-                        "caption": "實驗設置示意圖"
-                    },
-                    {
-                        "url": "assets/images/notes/002/results-visualization.png",
-                        "caption": "實驗結果可視化"
-                    }
-                ],
-                "sections": [
-                    {
-                        "title": "實驗設計",
-                        "content": "本實驗採用以下參數設置：\n- 學習率：0.001\n- 批次大小：32\n- 訓練輪次：100"
-                    },
-                    {
-                        "title": "數據收集",
-                        "content": "使用自建的低光照圖像數據集，包含5000張訓練樣本..."
-                    },
-                    {
-                        "title": "結果分析",
-                        "content": "實驗結果表明，改進後的模型在低光照條件下的識別準確率提升了15%"
-                    }
-                ]
-            },
-            "attachments": [
-                {
-                    "name": "實驗數據.xlsx",
-                    "url": "assets/files/notes/002/experiment-data.xlsx"
-                }
-            ]
+            }
         }
     ],
     "categories": [
         {
-            "id": "literature",
-            "name": "文獻研究",
-            "icon": "ri-book-read-line"
+            "id": "finance",
+            "name": "金融投資",
+            "icon": "ri-money-dollar-circle-line"
         },
         {
-            "id": "experiment",
-            "name": "實驗記錄",
-            "icon": "ri-flask-line"
+            "id": "weather",
+            "name": "氣象環境",
+            "icon": "ri-cloud-line"
         },
         {
-            "id": "analysis",
-            "name": "數據分析",
-            "icon": "ri-bar-chart-line"
+            "id": "ai",
+            "name": "人工智能",
+            "icon": "ri-brain-line"
+        },
+        {
+            "id": "others",
+            "name": "其他",
+            "icon": "ri-more-2-line"
         }
     ],
     "settings": {
-        "allowComments": true,
-        "enableVersioning": true,
-        "autoSave": true,
         "defaultView": "grid",
         "itemsPerPage": 10
     }
