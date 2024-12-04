@@ -9,12 +9,7 @@
             "keywords": ["道瓊斯指數", "香港恆生指數", "黃金價格", "WTI原油", "市場分析"],
             "content": {
                 "text": "分析四大金融市場（道瓊斯指數、香港恆生指數、黃金價格、WTI原油）在1990-2023年間的歷史表現，包括月度與年度漲跌幅度和上漲機率統計分析。",
-                "images": [
-//                    {
-//                        "url": "assets/images/notes/001/transformer-architecture.png",
-//                        "caption": "圖1: Transformer 架構圖"
-//                    }
-				]
+                "images": []
             }
         }
     ],
