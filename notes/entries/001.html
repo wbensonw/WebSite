@@ -23,6 +23,10 @@
             color: var(--text-secondary);
             cursor: pointer;
             transition: var(--transition-base);
+            /* 改善手機版按鈕排列 */
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
         }
         .button:hover {
             border-color: var(--primary);
@@ -38,25 +42,43 @@
             background: var(--surface);
             border-radius: var(--radius-lg);
             padding: 1rem;
+            /* 確保熱力圖容器可以水平捲動 */
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            margin-bottom: 2rem;
+            /* 防止表格溢出 */
+            position: relative;
+            z-index: 1;
         }
         #statsTable {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 2rem;
-            background: var(--surface);
-            border-radius: var(--radius-lg);
+            min-width: 1000px; /* 確保表格有最小寬度 */
         }
-        #statsTable th, #statsTable td {
+        #statsTable th, 
+        #statsTable td {
             padding: 0.75rem;
             text-align: right;
             border: 1px solid var(--border);
+            white-space: nowrap; /* 防止內容換行 */
         }
-        #statsTable th:first-child, #statsTable td:first-child {
+        #statsTable th:first-child, 
+        #statsTable td:first-child {
             text-align: left;
             position: sticky;
             left: 0;
             background: var(--surface);
-            z-index: 1;
+            z-index: 2;
+            /* 添加陰影效果 */
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
         }
         .positive { color: #4CAF50; }
         .negative { color: #F44336; }
@@ -74,11 +96,57 @@
             color: var(--text-secondary);
             line-height: 1.6;
         }
-        .table-container {
-            overflow-x: auto;
-            background: var(--surface);
-            border-radius: var(--radius-lg);
-            margin-bottom: 2rem;
+
+        /* 響應式設計優化 */
+        @media (max-width: 768px) {
+            .button {
+                min-width: calc(50% - 0.5rem); /* 在手機版上每行顯示兩個按鈕 */
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        
+            #heatmap {
+                padding: 0.5rem;
+                margin: 0 -1rem 1rem -1rem; /* 負邊距使熱力圖可以全寬顯示 */
+                border-radius: 0;
+            }
+        
+            .table-container {
+                margin: 0 -1rem 1rem -1rem;
+                border-radius: 0;
+                /* 添加捲動提示 */
+                background: linear-gradient(to right, var(--surface) 30%, rgba(255,255,255,0)),
+                            linear-gradient(to right, rgba(255,255,255,0), var(--surface) 70%) 100% 0;
+                background-size: 40px 100%, 40px 100%;
+                background-repeat: no-repeat;
+                background-attachment: local, local;
+            }
+
+            #statsTable {
+                font-size: 0.9rem;
+            }
+
+            #statsTable th, 
+            #statsTable td {
+                padding: 0.5rem;
+            }
+
+            #analysis-container {
+                padding: 1rem;
+                margin: 0 -1rem 1rem -1rem;
+                border-radius: 0;
+            }
+        }
+
+        /* 深色模式適配 */
+        @media (prefers-color-scheme: dark) {
+            .table-container {
+                background: linear-gradient(to right, var(--surface) 30%, rgba(0,0,0,0)),
+                            linear-gradient(to right, rgba(0,0,0,0), var(--surface) 70%) 100% 0;
+                background-size: 40px 100%, 40px 100%;
+                background-repeat: no-repeat;
+                background-attachment: local, local;
+            }
         }
     </style>
 </head>
