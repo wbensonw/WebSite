@@ -282,8 +282,11 @@ function updateButtons(activeMarket) {
     });
 }
 
+let currentMarketData = null;
+
 function showMarketData(market) {
     const marketInfo = allMarketData[market];
+    currentMarketData = marketInfo; // 保存當前市場數據
     
     // 更新標題
     document.querySelector('h1').textContent = `${marketInfo.name}歷史表現分析 (1990-2023)`;
@@ -320,19 +323,7 @@ function generateHeatmap(data) {
     
     const returns = years.map(year => data[year]);
     
-    // 根據不同市場設置不同的色階範圍
-    let zMin, zMax;
-    const marketName = document.querySelector('h1').textContent;
-    
-//    if (marketName.includes('WTI原油')) {
-//        zMin = -100;
-//        zMax = 100;
-//    } else {
-//        zMin = -50;
-//        zMax = 50;
-//    }
-
-    zMin = -50;
+    let zMin = -50;
     zMax = 50;
     
     const heatmapData = [{
@@ -362,15 +353,25 @@ function generateHeatmap(data) {
         yaxis: {
             title: '年份',
             autorange: 'reversed'
-        }
+        },
+        // 添加响应式配置
+        autosize: true
     };
 
     const config = {
         responsive: true,
-        displayModeBar: false
+        displayModeBar: false,
+        scrollZoom: false // 禁用滾動縮放
     };
 
     Plotly.newPlot('heatmap', heatmapData, heatmapLayout, config);
+}
+
+// 重新繪製圖表的函數
+function redrawChart() {
+    if (currentMarketData && document.getElementById('heatmap')) {
+        generateHeatmap(currentMarketData.data);
+    }
 }
 
 // 表格生成功能
@@ -456,4 +457,18 @@ function updateAnalysis(analysis) {
 // 初始化頁面
 document.addEventListener('DOMContentLoaded', function() {
     showData('dow'); // 預設顯示道瓊斯指數數據
+
+    // 添加視窗大小改變事件監聽器
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(redrawChart, 250);
+    });
+
+    // 添加滾動事件監聽器
+    let scrollTimeout;
+    window.addEventListener('scroll', function() {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(redrawChart, 250);
+    });
 });

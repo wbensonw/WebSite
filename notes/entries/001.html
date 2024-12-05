@@ -42,10 +42,9 @@
             background: var(--surface);
             border-radius: var(--radius-lg);
             padding: 1rem;
-            /* 確保熱力圖容器可以水平捲動 */
             width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
+            min-height: 800px; /* 確保圖表有最小高度 */
+            position: relative; /* 添加定位 */
         }
         .table-container {
             width: 100%;
@@ -106,9 +105,17 @@
             }
         
             #heatmap {
+                min-height: 600px; /* 手機版降低最小高度 */
+                margin: 0 -1rem 1rem -1rem;
+                width: calc(100% + 2rem);
                 padding: 0.5rem;
-                margin: 0 -1rem 1rem -1rem; /* 負邊距使熱力圖可以全寬顯示 */
                 border-radius: 0;
+            }
+			
+		    /* 防止熱力圖消失 */
+            .js-plotly-plot {
+                position: relative !important;
+                transform: none !important;
             }
         
             .table-container {
@@ -136,6 +143,12 @@
                 margin: 0 -1rem 1rem -1rem;
                 border-radius: 0;
             }
+        }
+		
+        /* 確保熱力圖在滾動時保持可見 */
+        .js-plotly-plot .plotly {
+            position: relative !important;
+            transform: none !important;
         }
 
         /* 深色模式適配 */
