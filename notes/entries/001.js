@@ -305,8 +305,8 @@ function showSummary() {
     // 更新標題
     document.querySelector('h1').textContent = '金融市場綜合分析 (1990-2023)';
     
-    // 移除熱力圖
-    document.getElementById('heatmap').innerHTML = '';
+    // 生成綜合熱力圖
+    generateSummaryHeatmap();
     
     // 生成綜合比較表格
     generateSummaryTable();
@@ -314,6 +314,8 @@ function showSummary() {
     // 更新分析內容
     updateAnalysis(summaryAnalysis);
 }
+
+
 
 // 圖表生成功能
 function generateHeatmap(data) {
@@ -369,7 +371,9 @@ function generateHeatmap(data) {
 
 // 重新繪製圖表的函數
 function redrawChart() {
-    if (currentMarketData && document.getElementById('heatmap')) {
+    if (document.querySelector('h1').textContent === '金融市場綜合分析 (1990-2023)') {
+        generateSummaryHeatmap();
+    } else if (currentMarketData && document.getElementById('heatmap')) {
         generateHeatmap(currentMarketData.data);
     }
 }
@@ -413,11 +417,67 @@ function generateTable(data) {
     table.appendChild(probRow);
 }
 
+// 綜合熱力圖生成函數
+function generateSummaryHeatmap() {
+    const months = ['1月', '2月', '3月', '4月', '5月', '6月', 
+                   '7月', '8月', '9月', '10月', '11月', '12月', '全年'];
+    
+    const markets = ['道瓊斯指數', '香港恆生指數', '黃金價格', 'WTI原油'];
+    
+    // 計算每個市場每月的上漲機率
+    const probabilities = markets.map(marketName => {
+        const market = Object.values(allMarketData).find(m => m.name === marketName);
+        const years = Object.keys(market.data);
+        return Array(13).fill(0).map((_, j) => {
+            const upCount = years.filter(year => market.data[year][j] > 0).length;
+            return parseFloat((upCount / years.length * 100).toFixed(1));
+        });
+    });
+
+    const heatmapData = [{
+        z: probabilities,
+        x: months,
+        y: markets,
+        type: 'heatmap',
+        colorscale: [
+            ['0.0', 'rgb(255,0,0)'],
+            ['0.5', 'rgb(255,255,255)'],
+            ['1.0', 'rgb(0,255,0)']
+        ],
+        zmin: 0,
+        zmax: 100,
+        hoverongaps: false,
+        hovertemplate: '%{y}<br>%{x}: %{z}%<extra></extra>'
+    }];
+
+    const heatmapLayout = {
+        title: '各市場月度與年度上漲機率 (%)',
+        height: 400, // 由於只有4個市場，可以減少高度
+        margin: {t: 50, l: 150}, // 增加左側邊距以適應市場名稱
+        xaxis: {
+            title: '月份',
+            side: 'bottom'
+        },
+        yaxis: {
+            title: '市場',
+            autorange: true
+        },
+        autosize: true
+    };
+
+    const config = {
+        responsive: true,
+        displayModeBar: false,
+        scrollZoom: false
+    };
+
+    Plotly.newPlot('heatmap', heatmapData, heatmapLayout, config);
+}
+
 function generateSummaryTable() {
     const table = document.getElementById('statsTable');
     table.innerHTML = '';
     
-    const markets = ['道瓊斯指數', '香港恆生指數', '黃金價格', 'WTI原油'];
     const months = ['1月', '2月', '3月', '4月', '5月', '6月', 
                    '7月', '8月', '9月', '10月', '11月', '12月', '全年'];
 
@@ -429,7 +489,7 @@ function generateSummaryTable() {
     table.appendChild(headerRow);
 
     // 為每個市場添加上漲機率
-    Object.entries(allMarketData).forEach(([key, market]) => {
+    Object.values(allMarketData).forEach(market => {
         const years = Object.keys(market.data);
         const probabilities = Array(13).fill(0).map((_, j) => {
             const upCount = years.filter(year => market.data[year][j] > 0).length;
