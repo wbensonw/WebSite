@@ -350,8 +350,20 @@ function generateHeatmap(data) {
     
     const returns = years.map(year => data[year]);
     
-    let zMin = -50;
-    zMax = 50;
+    // 針對不同市場設置不同的範圍
+    let zMin, zMax;
+    const marketName = document.querySelector('h1').textContent;
+    
+    if (marketName.includes('WTI原油')) {
+        zMin = -100;
+        zMax = 100;
+    } else if (marketName.includes('香港恆生')) {
+        zMin = -75;
+        zMax = 75;
+    } else {
+        zMin = -50;
+        zMax = 50;
+    }
     
     const heatmapData = [{
         z: returns,
@@ -366,7 +378,7 @@ function generateHeatmap(data) {
         zmin: zMin,
         zmax: zMax,
         hoverongaps: false,
-        hovertemplate: '%{y}年 %{x}: %{z}%<extra></extra>'
+        hovertemplate: '%{y}年 %{x}: %{z:.2f}%<extra></extra>'
     }];
 
     const heatmapLayout = {
@@ -381,14 +393,15 @@ function generateHeatmap(data) {
             title: '年份',
             autorange: 'reversed'
         },
-        // 添加响应式配置
-        autosize: true
+        autosize: true,
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0)'
     };
 
     const config = {
         responsive: true,
         displayModeBar: false,
-        scrollZoom: false // 禁用滾動縮放
+        scrollZoom: false
     };
 
     Plotly.newPlot('heatmap', heatmapData, heatmapLayout, config);
@@ -447,7 +460,7 @@ function generateSummaryHeatmap() {
     const months = ['1月', '2月', '3月', '4月', '5月', '6月', 
                    '7月', '8月', '9月', '10月', '11月', '12月', '全年'];
     
-    const markets = ['道瓊斯指數', '香港恆生指數', '黃金價格', 'WTI原油'];
+    const markets = Object.keys(allMarketData).map(key => allMarketData[key].name);
     
     // 計算每個市場每月的上漲機率
     const probabilities = markets.map(marketName => {
@@ -472,13 +485,13 @@ function generateSummaryHeatmap() {
         zmin: 0,
         zmax: 100,
         hoverongaps: false,
-        hovertemplate: '%{y}<br>%{x}: %{z}%<extra></extra>'
+        hovertemplate: '%{y}<br>%{x}: %{z:.1f}%<extra></extra>'
     }];
 
     const heatmapLayout = {
         title: '各市場月度與年度上漲機率 (%)',
-        height: 400, // 由於只有4個市場，可以減少高度
-        margin: {t: 50, l: 150}, // 增加左側邊距以適應市場名稱
+        height: 400,
+        margin: {t: 50, l: 150},
         xaxis: {
             title: '月份',
             side: 'bottom'
@@ -487,7 +500,9 @@ function generateSummaryHeatmap() {
             title: '市場',
             autorange: true
         },
-        autosize: true
+        autosize: true,
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0)'
     };
 
     const config = {
@@ -541,19 +556,24 @@ function updateAnalysis(analysis) {
 
 // 初始化頁面
 document.addEventListener('DOMContentLoaded', function() {
-    showData('dow'); // 預設顯示道瓊斯指數數據
+    try {
+        showData('dow'); // 預設顯示道瓊斯指數數據
 
-    // 添加視窗大小改變事件監聽器
-    let resizeTimeout;
-    window.addEventListener('resize', function() {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(redrawChart, 250);
-    });
+        // 添加視窗大小改變事件監聽器
+        let resizeTimeout;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(redrawChart, 250);
+        });
 
-    // 添加滾動事件監聽器
-    let scrollTimeout;
-    window.addEventListener('scroll', function() {
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(redrawChart, 250);
-    });
+        // 添加滾動事件監聽器
+        let scrollTimeout;
+        window.addEventListener('scroll', function() {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(redrawChart, 250);
+        });
+    } catch (error) {
+        console.error('初始化圖表失敗:', error);
+        document.getElementById('heatmap').innerHTML = '圖表載入失敗，請重新整理頁面';
+    }
 });
