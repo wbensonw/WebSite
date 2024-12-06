@@ -509,25 +509,27 @@ function generateSummaryHeatmap() {
 
     const heatmapLayout = {
         title: '各市場月度與年度上漲機率 (%)',
-        height: 400,
-        margin: {t: 50, l: 150},
+        height: 300,  // 從400改為300
+        margin: {
+            t: 30,    // 從50改為30
+            l: 150,
+            b: 30,    // 添加底部邊距
+            r: 20     // 添加右側邊距
+        },
         xaxis: {
             title: '月份',
-            side: 'bottom'
+            side: 'bottom',
+            titlefont: { size: 12 }  // 減小字體
         },
         yaxis: {
             title: '市場',
-            autorange: true
+            autorange: true,
+            titlefont: { size: 12 }  // 減小字體
         },
         autosize: true,
         paper_bgcolor: 'rgba(0,0,0,0)',
-        plot_bgcolor: 'rgba(0,0,0,0)'
-    };
-
-    const config = {
-        responsive: true,
-        displayModeBar: false,
-        scrollZoom: false
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        font: { size: 11 }  // 整體減小字體
     };
 
     Plotly.newPlot('heatmap', heatmapData, heatmapLayout, config);
@@ -565,11 +567,30 @@ function generateSummaryTable() {
 
 function updateAnalysis(analysis) {
     const container = document.getElementById('analysis-container');
+    
+    // 創建標題樣式
+    const titleHTML = `<h3 class="analysis-title">${analysis.title}</h3>`;
+    
+    // 處理關鍵點
+    const keyPointsHTML = analysis.keyPoints.map(point => {
+        if (point.startsWith('-')) {
+            // 子項目使用縮進和不同的樣式
+            return `<div class="analysis-subpoint">${point}</div>`;
+        } else if (point === '') {
+            // 空行增加間距
+            return `<div class="analysis-spacer"></div>`;
+        } else {
+            // 主標題使用粗體
+            return `<div class="analysis-point">${point}</div>`;
+        }
+    }).join('');
+
+    // 更新容器內容
     container.innerHTML = `
-        <h3>${analysis.title}</h3>
-        <div>${analysis.keyPoints.map(point => 
-            `<div>${point}</div>`
-        ).join('')}</div>
+        ${titleHTML}
+        <div class="analysis-content">
+            ${keyPointsHTML}
+        </div>
     `;
 }
 

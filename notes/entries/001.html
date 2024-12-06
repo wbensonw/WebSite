@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../../assets/css/notes.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <style>
+<style>
         .button-container {
             display: flex;
             gap: 1rem;
@@ -42,9 +42,10 @@
             background: var(--surface);
             border-radius: var(--radius-lg);
             padding: 1rem;
+            /* 確保熱力圖容器可以水平捲動 */
             width: 100%;
-            min-height: 800px; /* 確保圖表有最小高度 */
-            position: relative; /* 添加定位 */
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
         .table-container {
             width: 100%;
@@ -87,13 +88,44 @@
             padding: 2rem;
             margin-bottom: 2rem;
         }
-        #analysis-container h3 {
-            margin-bottom: 1rem;
+
+        /* 分析內容樣式優化 */
+        .analysis-title {
+            font-size: 1.5rem;
+            font-weight: 600;
             color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
         }
-        #analysis-container div {
-            color: var(--text-secondary);
+
+        .analysis-content {
             line-height: 1.6;
+        }
+
+        .analysis-point {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: 1rem;
+        }
+
+        .analysis-subpoint {
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+            margin: 0.25rem 0;
+        }
+
+        .analysis-spacer {
+            height: 0.75rem;
+        }
+
+        /* 縮小綜合視圖中圖表和表格的間距 */
+        .notes-container[data-view="summary"] #heatmap {
+            margin-bottom: 1rem;
+        }
+
+        .notes-container[data-view="summary"] .table-container {
+            margin-top: 0;
         }
 
         /* 響應式設計優化 */
@@ -105,17 +137,9 @@
             }
         
             #heatmap {
-                min-height: 600px; /* 手機版降低最小高度 */
-                margin: 0 -1rem 1rem -1rem;
-                width: calc(100% + 2rem);
                 padding: 0.5rem;
+                margin: 0 -1rem 1rem -1rem; /* 負邊距使熱力圖可以全寬顯示 */
                 border-radius: 0;
-            }
-			
-		    /* 防止熱力圖消失 */
-            .js-plotly-plot {
-                position: relative !important;
-                transform: none !important;
             }
         
             .table-container {
@@ -123,7 +147,7 @@
                 border-radius: 0;
                 /* 添加捲動提示 */
                 background: linear-gradient(to right, var(--surface) 30%, rgba(255,255,255,0)),
-                            linear-gradient(to right, rgba(255,255,255,0), var(--surface) 70%) 100% 0;
+                           linear-gradient(to right, rgba(255,255,255,0), var(--surface) 70%) 100% 0;
                 background-size: 40px 100%, 40px 100%;
                 background-repeat: no-repeat;
                 background-attachment: local, local;
@@ -143,19 +167,26 @@
                 margin: 0 -1rem 1rem -1rem;
                 border-radius: 0;
             }
-        }
-		
-        /* 確保熱力圖在滾動時保持可見 */
-        .js-plotly-plot .plotly {
-            position: relative !important;
-            transform: none !important;
+
+            .analysis-title {
+                font-size: 1.2rem;
+            }
+
+            .analysis-point {
+                font-size: 1rem;
+            }
+
+            .analysis-subpoint {
+                font-size: 0.9rem;
+                padding-left: 1rem;
+            }
         }
 
         /* 深色模式適配 */
         @media (prefers-color-scheme: dark) {
             .table-container {
                 background: linear-gradient(to right, var(--surface) 30%, rgba(0,0,0,0)),
-                            linear-gradient(to right, rgba(0,0,0,0), var(--surface) 70%) 100% 0;
+                           linear-gradient(to right, rgba(0,0,0,0), var(--surface) 70%) 100% 0;
                 background-size: 40px 100%, 40px 100%;
                 background-repeat: no-repeat;
                 background-attachment: local, local;
