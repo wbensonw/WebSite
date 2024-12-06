@@ -479,7 +479,13 @@ function generateSummaryHeatmap() {
     const months = ['1月', '2月', '3月', '4月', '5月', '6月', 
                    '7月', '8月', '9月', '10月', '11月', '12月', '全年'];
     
-    const markets = Object.keys(allMarketData).map(key => allMarketData[key].name);
+    // 固定市場顯示順序
+    const markets = [
+        '道瓊斯指數',
+        '香港恆生指數',
+        '黃金價格',
+        'WTI原油'
+    ];
     
     // 計算每個市場每月的上漲機率
     const probabilities = markets.map(marketName => {
@@ -509,27 +515,33 @@ function generateSummaryHeatmap() {
 
     const heatmapLayout = {
         title: '各市場月度與年度上漲機率 (%)',
-        height: 300,  // 從400改為300
+        height: 300,
         margin: {
-            t: 30,    // 從50改為30
+            t: 30,
             l: 150,
-            b: 30,    // 添加底部邊距
-            r: 20     // 添加右側邊距
+            b: 30,
+            r: 20
         },
         xaxis: {
             title: '月份',
             side: 'bottom',
-            titlefont: { size: 12 }  // 減小字體
+            titlefont: { size: 12 }
         },
         yaxis: {
             title: '市場',
             autorange: true,
-            titlefont: { size: 12 }  // 減小字體
+            titlefont: { size: 12 }
         },
         autosize: true,
         paper_bgcolor: 'rgba(0,0,0,0)',
         plot_bgcolor: 'rgba(0,0,0,0)',
-        font: { size: 11 }  // 整體減小字體
+        font: { size: 11 }
+    };
+
+    const config = {
+        responsive: true,
+        displayModeBar: false,
+        scrollZoom: false
     };
 
     Plotly.newPlot('heatmap', heatmapData, heatmapLayout, config);
@@ -549,11 +561,20 @@ function generateSummaryTable() {
     ).join('');
     table.appendChild(headerRow);
 
+    // 固定市場顯示順序
+    const markets = [
+        {name: '道瓊斯指數', key: 'dow'},
+        {name: '香港恆生指數', key: 'hsi'},
+        {name: '黃金價格', key: 'gold'},
+        {name: 'WTI原油', key: 'wti'}
+    ];
+
     // 為每個市場添加上漲機率
-    Object.values(allMarketData).forEach(market => {
-        const years = Object.keys(market.data);
+    markets.forEach(market => {
+        const marketData = allMarketData[market.key];
+        const years = Object.keys(marketData.data);
         const probabilities = Array(13).fill(0).map((_, j) => {
-            const upCount = years.filter(year => market.data[year][j] > 0).length;
+            const upCount = years.filter(year => marketData.data[year][j] > 0).length;
             return (upCount / years.length * 100).toFixed(1);
         });
 
