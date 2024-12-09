@@ -33,6 +33,12 @@
             box-shadow: var(--shadow-lg);
         }
 
+        .phase-section {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
         .phase-header {
             display: flex;
             align-items: center;
@@ -66,11 +72,12 @@
         .phase-content {
             color: var(--text-secondary);
             line-height: 1.6;
+            padding-left: 3rem;
         }
 
         .phase-content ul {
             list-style: none;
-            padding-left: 1rem;
+            padding-left: 0;
             margin-top: 0.5rem;
         }
 
@@ -81,6 +88,26 @@
         }
 
         .phase-content li::before {
+            content: "•";
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+        }
+
+        /* 標準列表樣式 */
+        .standard-list {
+            list-style: none;
+            padding-left: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .standard-list li {
+            position: relative;
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .standard-list li::before {
             content: "•";
             color: var(--primary);
             position: absolute;
@@ -172,21 +199,6 @@
             margin-bottom: 0.5rem;
         }
 
-        /* 結論區塊 */
-        .conclusion {
-            background: var(--surface-variant);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .conclusion-title {
-            color: var(--primary);
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
         /* 註釋 */
         .note-footer {
             margin-top: 3rem;
@@ -199,8 +211,7 @@
         /* 響應式設計 */
         @media (max-width: 768px) {
             .cycle-phase,
-            .case-study,
-            .conclusion {
+            .case-study {
                 padding: 1rem;
             }
 
@@ -215,6 +226,10 @@
 
             .timeline-item {
                 padding-left: 1.5rem;
+            }
+            
+            .phase-content {
+                padding-left: 1rem;
             }
         }
     </style>
@@ -236,7 +251,7 @@
             <header class="note-detail-header">
                 <div class="note-meta">
                     <span class="note-type">房地產研究</span>
-                    <time class="note-date">2024-04-01</time>
+                    <time class="note-date">2024-12-09</time>
                 </div>
                 <h1 class="note-title">全球主要房地產市場週期分析</h1>
                 <div class="note-keywords">
@@ -254,112 +269,112 @@
                         <i class="ri-loop-right-line"></i>
                         <div>
                             <div class="phase-title">週期定義</div>
-                            <div class="phase-subtitle">完整週期：泡沫形成→觸發下跌→系統蔓延→市場調整→企穩回升</div>
+                            <div class="phase-subtitle">完整週期：泡沫形成 → 觸發下跌 → 系統蔓延 → 市場調整 → 企穩回升</div>
+                        </div>
+                    </div>
+
+                    <div class="phase-section">
+                        <div class="phase-header">
+                            <div class="phase-number">1</div>
+                            <div>
+                                <div class="phase-title">泡沫形成階段</div>
+                                <div class="phase-subtitle">漲上天</div>
+                            </div>
+                        </div>
+                        <div class="phase-content">
+                            <ul>
+                                <li>像吹氣球一樣，房價不斷上漲</li>
+                                <li>人人都在買房，深怕買不到</li>
+                                <li>銀行大量放貸，開發商瘋狂蓋房</li>
+                                <li>房價瘋漲，人人搶房</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="phase-section">
+                        <div class="phase-header">
+                            <div class="phase-number">2</div>
+                            <div>
+                                <div class="phase-title">觸發下跌階段</div>
+                                <div class="phase-subtitle">突然破了</div>
+                            </div>
+                        </div>
+                        <div class="phase-content">
+                            <ul>
+                                <li>氣球被針戳破的那一刻</li>
+                                <li>可能是政府打房、銀行收緊貸款</li>
+                                <li>房價開始下跌，買家觀望</li>
+                                <li>成交量大幅減少</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="phase-section">
+                        <div class="phase-header">
+                            <div class="phase-number">3</div>
+                            <div>
+                                <div class="phase-title">系統蔓延階段</div>
+                                <div class="phase-subtitle">禍及全身</div>
+                            </div>
+                        </div>
+                        <div class="phase-content">
+                            <ul>
+                                <li>一個領域的問題影響到其他領域</li>
+                                <li>房企可能倒閉，銀行壞帳增加</li>
+                                <li>失業率上升，經濟下滑</li>
+                                <li>房價持續下跌</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="phase-section">
+                        <div class="phase-header">
+                            <div class="phase-number">4</div>
+                            <div>
+                                <div class="phase-title">市場調整階段</div>
+                                <div class="phase-subtitle">慢慢療傷</div>
+                            </div>
+                        </div>
+                        <div class="phase-content">
+                            <ul>
+                                <li>傷口正在癒合的過程</li>
+                                <li>房價尋找新的平衡點</li>
+                                <li>政府可能推出救市政策</li>
+                                <li>市場信心慢慢恢復</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="phase-section">
+                        <div class="phase-header">
+                            <div class="phase-number">5</div>
+                            <div>
+                                <div class="phase-title">企穩回升階段</div>
+                                <div class="phase-subtitle">重獲新生</div>
+                            </div>
+                        </div>
+                        <div class="phase-content">
+                            <ul>
+                                <li>傷口癒合，重新站起來</li>
+                                <li>成交量開始回升</li>
+                                <li>房價緩慢上漲</li>
+                                <li>市場重回健康狀態</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
 
-                <div class="cycle-phase">
-                    <div class="phase-header">
-                        <div class="phase-number">1</div>
-                        <div>
-                            <div class="phase-title">泡沫形成階段</div>
-                            <div class="phase-subtitle">漲上天</div>
-                        </div>
-                    </div>
-                    <div class="phase-content">
-                        <ul>
-                            <li>像吹氣球一樣，房價不斷上漲</li>
-                            <li>人人都在買房，深怕買不到</li>
-                            <li>銀行大量放貸，開發商瘋狂蓋房</li>
-                            <li>房價瘋漲，人人搶房</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="cycle-phase">
-                    <div class="phase-header">
-                        <div class="phase-number">2</div>
-                        <div>
-                            <div class="phase-title">觸發下跌階段</div>
-                            <div class="phase-subtitle">突然破了</div>
-                        </div>
-                    </div>
-                    <div class="phase-content">
-                        <ul>
-                            <li>氣球被針戳破的那一刻</li>
-                            <li>可能是政府打房、銀行收緊貸款</li>
-                            <li>房價開始下跌，買家觀望</li>
-                            <li>成交量大幅減少</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="cycle-phase">
-                    <div class="phase-header">
-                        <div class="phase-number">3</div>
-                        <div>
-                            <div class="phase-title">系統蔓延階段</div>
-                            <div class="phase-subtitle">禍及全身</div>
-                        </div>
-                    </div>
-                    <div class="phase-content">
-                        <ul>
-                            <li>一個領域的問題影響到其他領域</li>
-                            <li>房企可能倒閉，銀行壞帳增加</li>
-                            <li>失業率上升，經濟下滑</li>
-                            <li>房價持續下跌</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="cycle-phase">
-                    <div class="phase-header">
-                        <div class="phase-number">4</div>
-                        <div>
-                            <div class="phase-title">市場調整階段</div>
-                            <div class="phase-subtitle">慢慢療傷</div>
-                        </div>
-                    </div>
-                    <div class="phase-content">
-                        <ul>
-                            <li>傷口正在癒合的過程</li>
-                            <li>房價尋找新的平衡點</li>
-                            <li>政府可能推出救市政策</li>
-                            <li>市場信心慢慢恢復</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="cycle-phase">
-                    <div class="phase-header">
-                        <div class="phase-number">5</div>
-                        <div>
-                            <div class="phase-title">企穩回升階段</div>
-                            <div class="phase-subtitle">重獲新生</div>
-                        </div>
-                    </div>
-                    <div class="phase-content">
-                        <ul>
-                            <li>傷口癒合，重新站起來</li>
-                            <li>成交量開始回升</li>
-                            <li>房價緩慢上漲</li>
-                            <li>市場重回健康狀態</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="conclusion">
-                    <div class="conclusion-title">週期特徵</div>
-                    <ul>
+                <div>
+                    <h3>週期特徵</h3>
+                    <ul class="standard-list">
                         <li>平均7-10年一個大週期</li>
                         <li>影響因素：貨幣政策、人口結構、經濟增長、政府調控</li>
                     </ul>
                 </div>
 
-                <div class="conclusion">
-                    <div class="conclusion-title">週期指標體系</div>
-                    <ul>
+                <div>
+                    <h3>週期指標體系</h3>
+                    <ul class="standard-list">
                         <li>房價收入比</li>
                         <li>房租回報率</li>
                         <li>空置率</li>
@@ -633,12 +648,12 @@
                     </div>
                 </div>
 
-                <div class="conclusion">
-                    <div class="conclusion-title">投資者行動指南</div>
+                <div>
+                    <h2>投資者行動指南</h2>
                     <p>結論：房地產泡沫形成往往經歷3-7年快速上漲期，價格上漲幅度通常是當地居民收入增長的3-5倍。理解泡沫形成機制，對預防系統性風險具有重要意義。各國經驗表明，房地產市場需要建立長效機制，避免過度金融化和投機化。</p>
                     
                     <h3>1. 市場頂部信號：</h3>
-                    <ul>
+                    <ul class="standard-list">
                         <li>房價收入比過高（>10倍）</li>
                         <li>投機需求佔比高（>40%）</li>
                         <li>槓桿率快速上升</li>
@@ -647,7 +662,7 @@
                     </ul>
 
                     <h3>2. 市場底部特徵：</h3>
-                    <ul>
+                    <ul class="standard-list">
                         <li>成交量持續萎縮</li>
                         <li>開發商大幅降價</li>
                         <li>銀行收緊放貸</li>
