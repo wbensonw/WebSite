@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>全球主要房地產市場週期分析 - 研究筆記</title>
+    <title>全球主要房地產市場週期分析</title>
     <link rel="stylesheet" href="../../assets/css/main.css">
     <link rel="stylesheet" href="../../assets/css/notes.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
@@ -76,42 +76,42 @@
         }
 
         .phase-content ul {
-            list-style: none;
-            padding-left: 0;
-            margin-top: 0.5rem;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
         }
 
         .phase-content li {
             position: relative;
-            margin-bottom: 0.5rem;
-            padding-left: 1.5rem;
+            padding-left: 1.2em;
+            margin-bottom: 0.5em;
         }
 
         .phase-content li::before {
             content: "•";
-            color: var(--primary);
             position: absolute;
             left: 0;
+            color: var(--primary);
         }
 
         /* 標準列表樣式 */
         .standard-list {
-            list-style: none;
-            padding-left: 1.5rem;
+            list-style-type: none;
+            padding: 0;
             margin: 1rem 0;
         }
 
         .standard-list li {
             position: relative;
-            margin-bottom: 0.5rem;
-            padding-left: 1.5rem;
+            padding-left: 1.2em;
+            margin-bottom: 0.5em;
         }
 
         .standard-list li::before {
             content: "•";
-            color: var(--primary);
             position: absolute;
             left: 0;
+            color: var(--primary);
         }
 
         /* 數據表格 */
@@ -199,6 +199,25 @@
             margin-bottom: 0.5rem;
         }
 
+        .timeline-item ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0.5rem 0;
+        }
+
+        .timeline-item li {
+            position: relative;
+            padding-left: 1.2em;
+            margin-bottom: 0.5em;
+        }
+
+        .timeline-item li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
         /* 註釋 */
         .note-footer {
             margin-top: 3rem;
@@ -206,6 +225,21 @@
             border-top: 2px solid var(--border);
             font-size: 0.9rem;
             color: var(--text-secondary);
+        }
+
+        /* 段落樣式 */
+        p {
+            margin: 0.5rem 0;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* 標題樣式 */
+        h3 {
+            color: var(--text-primary);
+            margin: 1.5rem 0 1rem 0;
+            font-size: 1.1rem;
+            font-weight: 600;
         }
 
         /* 響應式設計 */
@@ -227,7 +261,7 @@
             .timeline-item {
                 padding-left: 1.5rem;
             }
-            
+        
             .phase-content {
                 padding-left: 1rem;
             }
