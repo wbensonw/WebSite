@@ -105,7 +105,7 @@
             "icon": "ri-satellite-line",
             "description": "日本氣象廳衛星雲圖服務。",
             "url": "data.jma.go.jp/mscweb/data/himawari/index.html",
-            "categories": ["氣象環境"],
+            "categories": ["其他2"],
             "priority": 12
         },
         {
@@ -186,7 +186,7 @@
             "icon": "ri-database-2-line",
             "description": "提供氣象觀測和研究資料。",
             "url": "140.137.32.27/www/?fbcli",
-            "categories": ["氣象環境"],
+            "categories": ["其他2"],
             "priority": 21
         },
         {
@@ -224,6 +224,51 @@
             "url": "elicit.com",
             "categories": ["期刊論文"],
             "priority": 25
+        },
+        {
+            "id": "global-rates",
+            "title": "全球-成熟國家基準利率",
+            "icon": "ri-line-chart-line",
+            "description": "追蹤全球主要成熟經濟體的基準利率走勢。",
+            "url": "macromicro.me/charts/50813/global-developed-countries-interest-rates",
+            "categories": ["金融投資"],
+            "priority": 26
+        },
+        {
+            "id": "cn-m1m2-csi300",
+            "title": "中國-M1減M2 vs.滬深300",
+            "icon": "ri-line-chart-line",
+            "description": "分析中國貨幣供應差值與股市表現關係。",
+            "url": "macromicro.me/collections/55/cn-shanghai-shengzhen-csi-300-index/260/cn-china-m1-m2",
+            "categories": ["金融投資"],
+            "priority": 27
+        },
+        {
+            "id": "us-mm-index",
+            "title": "MM美股基本面指數",
+            "icon": "ri-stock-line",
+            "description": "追蹤美股市場基本面綜合指標。",
+            "url": "macromicro.me/collections/34/us-stock-relative/444/us-mm-gspc",
+            "categories": ["金融投資"],
+            "priority": 28
+        },
+        {
+            "id": "buffett-indicator",
+            "title": "美股-巴菲特指標",
+            "icon": "ri-stock-line",
+            "description": "追蹤美股總市值對GDP比率指標。",
+            "url": "macromicro.me/collections/34/us-stock-relative/406/us-buffet-index-gspc",
+            "categories": ["金融投資"],
+            "priority": 29
+        },
+        {
+            "id": "ncep-eemn",
+            "title": "NCEP EEMN Data",
+            "icon": "ri-database-2-line",
+            "description": "美國國家環境預報中心數據庫。",
+            "url": "ftp.emc.ncep.noaa.gov/gc_wmb/jpeng/eemn",
+            "categories": ["其他2"],
+            "priority": 30
         }
     ],
     "categories": [
