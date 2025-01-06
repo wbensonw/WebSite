@@ -175,6 +175,21 @@ class DashboardManager {
                 }
                 return;
             }
+        } else if (category !== '其他2' && this.isOthers2Visible) {
+            // 如果切換到除了其他2以外的任何分類，則自動隱藏其他2並重置狀態
+            this.isOthers2Visible = false;
+            localStorage.setItem('isOthers2Visible', 'false');
+            this.othersClickCount = 0;
+            localStorage.setItem('othersClickCount', '0');
+        
+            // 隱藏其他2按鈕
+            const others2Btn = document.querySelector('.category-btn[data-category="其他2"]');
+            if (others2Btn) {
+                others2Btn.classList.remove('visible');
+                others2Btn.classList.add('hidden');
+            }
+        
+            showNotification('已隱藏分類', 'success');
         }
 
         // 一般分類切換
