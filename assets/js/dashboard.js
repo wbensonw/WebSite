@@ -33,9 +33,18 @@ class DashboardManager {
         if (!data) throw new Error('無法載入數據');
         this.widgets = data.widgets;
         this.categories = data.categories;
-        this.setupCategories(this.categories.filter(cat => cat.visible));
+    
+        // 根據localStorage中的狀態過濾分類
+        const visibleCategories = this.categories.filter(cat => {
+            if (cat.name === '其他2') {
+                return this.isOthers2Visible;
+            }
+            return cat.visible;
+        });
+    
+        this.setupCategories(visibleCategories);
         return data.categories;
-    }
+}
 
     // 設置分類按鈕
     setupCategories(categories) {
@@ -97,16 +106,21 @@ class DashboardManager {
 
     // 設置初始狀態
     setInitialState() {
-        const savedView = localStorage.getItem('dashboardView') || 'grid';
-        this.handleViewChange(savedView);
-
-        // 恢復其他2的顯示狀態
+        // 首先恢復其他2的顯示狀態
         this.isOthers2Visible = localStorage.getItem('isOthers2Visible') === 'true';
         this.othersClickCount = parseInt(localStorage.getItem('othersClickCount') || '0');
-        
+    
+        // 如果其他2是可見的，則設置為當前分類
         if (this.isOthers2Visible) {
-            this.showOthers2Category();
+            this.currentCategory = '其他2';
         }
+    
+        // 設置視圖狀態
+        const savedView = localStorage.getItem('dashboardView') || 'grid';
+        this.handleViewChange(savedView);
+    
+        // 重新加載分類並重新渲染
+        this.render();
     }
 
     // 顯示其他2分類
@@ -115,12 +129,11 @@ class DashboardManager {
         if (others2Btn) {
             others2Btn.classList.remove('hidden');
             others2Btn.classList.add('visible');
-            // 自動切換到其他2的內容
-            this.currentCategory = '其他2';
-            document.querySelectorAll('.category-btn').forEach(btn => 
-                btn.classList.remove('active'));
-            others2Btn.classList.add('active');
         }
+        // 更新當前分類
+        this.currentCategory = '其他2';
+        // 重新渲染以顯示其他2的內容
+        this.render();
     }
 
     // 隱藏其他2分類
@@ -129,15 +142,11 @@ class DashboardManager {
         if (others2Btn) {
             others2Btn.classList.remove('visible');
             others2Btn.classList.add('hidden');
-            // 自動切換回其他的內容
-            this.currentCategory = '其他';
-            const othersBtn = document.querySelector('.category-btn[data-category="其他"]');
-            if (othersBtn) {
-                document.querySelectorAll('.category-btn').forEach(btn => 
-                    btn.classList.remove('active'));
-                othersBtn.classList.add('active');
-            }
         }
+        // 更新當前分類
+        this.currentCategory = '其他';
+        // 重新渲染以顯示其他的內容
+        this.render();
     }
 
     // 處理分類變更
@@ -153,33 +162,17 @@ class DashboardManager {
                 localStorage.setItem('isOthers2Visible', this.isOthers2Visible);
             
                 if (this.isOthers2Visible) {
-                    this.showOthers2Category();
                     showNotification('已解鎖隱藏分類', 'success');
-                    // 自動切換到其他2分類的內容
-                    const others2Btn = document.querySelector('.category-btn[data-category="其他2"]');
-                    if (others2Btn) {
-                        document.querySelectorAll('.category-btn').forEach(btn => 
-                            btn.classList.remove('active'));
-                        others2Btn.classList.add('active');
-                        this.currentCategory = '其他2';
-                    }
+                    this.showOthers2Category();
                 } else {
-                    this.hideOthers2Category();
                     showNotification('已隱藏分類', 'success');
-                    // 自動切換回其他分類的內容
-                    const othersBtn = document.querySelector('.category-btn[data-category="其他"]');
-                    if (othersBtn) {
-                        document.querySelectorAll('.category-btn').forEach(btn => 
-                            btn.classList.remove('active'));
-                        othersBtn.classList.add('active');
-                        this.currentCategory = '其他';
-                    }
+                    this.hideOthers2Category();
                 }
-                this.render();
                 return;
             }
         }
-
+    
+        // 更新按鈕狀態和當前分類
         document.querySelectorAll('.category-btn').forEach(btn => 
             btn.classList.remove('active'));
         button.classList.add('active');
@@ -238,14 +231,12 @@ class DashboardManager {
     // 過濾 widgets
     filterWidgets() {
         return this.widgets.filter(widget => {
-            // 檢查是否匹配當前分類
             const matchesCategory = this.currentCategory === '全部' || 
                                   (this.currentCategory === '其他2' ? 
                                       widget.categories.includes('其他2') : 
                                       widget.categories.includes(this.currentCategory) && 
                                       !widget.categories.includes('其他2'));
 
-            // 檢查是否匹配搜索條件
             const matchesSearch = !this.searchTerm || 
                                 widget.title.toLowerCase().includes(this.searchTerm) || 
                                 widget.description.toLowerCase().includes(this.searchTerm) || 
