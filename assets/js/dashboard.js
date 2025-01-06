@@ -115,6 +115,11 @@ class DashboardManager {
         if (others2Btn) {
             others2Btn.classList.remove('hidden');
             others2Btn.classList.add('visible');
+            // 自動切換到其他2的內容
+            this.currentCategory = '其他2';
+            document.querySelectorAll('.category-btn').forEach(btn => 
+                btn.classList.remove('active'));
+            others2Btn.classList.add('active');
         }
     }
 
@@ -124,13 +129,13 @@ class DashboardManager {
         if (others2Btn) {
             others2Btn.classList.remove('visible');
             others2Btn.classList.add('hidden');
-        }
-
-        // 如果當前正在查看其他2，切換回其他
-        if (this.currentCategory === '其他2') {
+            // 自動切換回其他的內容
+            this.currentCategory = '其他';
             const othersBtn = document.querySelector('.category-btn[data-category="其他"]');
             if (othersBtn) {
-                this.handleCategoryChange(othersBtn);
+                document.querySelectorAll('.category-btn').forEach(btn => 
+                    btn.classList.remove('active'));
+                othersBtn.classList.add('active');
             }
         }
     }
@@ -138,22 +143,40 @@ class DashboardManager {
     // 處理分類變更
     handleCategoryChange(button) {
         const category = button.dataset.category;
-        
+    
         if (category === '其他') {
             this.othersClickCount = (this.othersClickCount + 1) % 10;
             localStorage.setItem('othersClickCount', this.othersClickCount);
-            
+        
             if (this.othersClickCount === 5) {
                 this.isOthers2Visible = !this.isOthers2Visible;
                 localStorage.setItem('isOthers2Visible', this.isOthers2Visible);
-                
+            
                 if (this.isOthers2Visible) {
                     this.showOthers2Category();
                     showNotification('已解鎖隱藏分類', 'success');
+                    // 自動切換到其他2分類的內容
+                    const others2Btn = document.querySelector('.category-btn[data-category="其他2"]');
+                    if (others2Btn) {
+                        document.querySelectorAll('.category-btn').forEach(btn => 
+                            btn.classList.remove('active'));
+                        others2Btn.classList.add('active');
+                        this.currentCategory = '其他2';
+                    }
                 } else {
                     this.hideOthers2Category();
                     showNotification('已隱藏分類', 'success');
+                    // 自動切換回其他分類的內容
+                    const othersBtn = document.querySelector('.category-btn[data-category="其他"]');
+                    if (othersBtn) {
+                        document.querySelectorAll('.category-btn').forEach(btn => 
+                            btn.classList.remove('active'));
+                        othersBtn.classList.add('active');
+                        this.currentCategory = '其他';
+                    }
                 }
+                this.render();
+                return;
             }
         }
 
