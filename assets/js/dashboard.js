@@ -128,11 +128,16 @@ class DashboardManager {
         }
     }
 
-    // 處理分類變更
+// 處理分類變更
     handleCategoryChange(button) {
         const category = button.dataset.category;
     
         if (category === '其他') {
+            // 檢查按鈕是否被禁用
+            if (button.disabled) {
+                return;
+            }
+
             this.othersClickCount = (this.othersClickCount + 1) % 10;
             localStorage.setItem('othersClickCount', this.othersClickCount);
         
@@ -154,6 +159,20 @@ class DashboardManager {
                     // 然後更新分類和渲染
                     this.currentCategory = '其他2';
                     showNotification('已解鎖隱藏分類', 'success');
+
+                    // 禁用"其他"按鈕1.5秒
+                    const othersBtn = document.querySelector('.category-btn[data-category="其他"]');
+                    if (othersBtn) {
+                        othersBtn.disabled = true;
+                        othersBtn.style.opacity = '0.5';
+                        othersBtn.style.cursor = 'not-allowed';
+                        setTimeout(() => {
+                            othersBtn.disabled = false;
+                            othersBtn.style.opacity = '';
+                            othersBtn.style.cursor = '';
+                        }, 1500);
+                    }
+
                     this.render();
                 } else {
                     // 先更新按鈕狀態
@@ -175,8 +194,8 @@ class DashboardManager {
                 }
                 return;
             }
-        } else if (category !== '其他2' && this.isOthers2Visible) {
-            // 如果切換到除了其他2以外的任何分類，則自動隱藏其他2並重置狀態
+        } else if (this.isOthers2Visible) { // 移除 category !== '其他2' 條件
+            // 如果切換到任何分類，則自動隱藏其他2並重置狀態
             this.isOthers2Visible = false;
             localStorage.setItem('isOthers2Visible', 'false');
             this.othersClickCount = 0;
