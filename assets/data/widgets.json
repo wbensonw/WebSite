@@ -204,7 +204,7 @@
             "icon": "ri-book-2-line",
             "description": "澳門圖書館電子資源平台，提供豐富的電子報紙和期刊資源。",
             "url": "library.gov.mo/zh-hant/library-collections/e-resources/e-newspapper/pressreader",
-            "categories": ["期刊論文"],
+            "categories": ["其他"],
             "priority": 23
         },
         {
