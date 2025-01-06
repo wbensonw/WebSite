@@ -128,7 +128,7 @@ class DashboardManager {
         }
     }
 
-// 處理分類變更
+    // 處理分類變更
     handleCategoryChange(button) {
         const category = button.dataset.category;
     
@@ -138,63 +138,70 @@ class DashboardManager {
                 return;
             }
 
+            if (this.isOthers2Visible) {
+                // 直接隱藏其他2
+                this.isOthers2Visible = false;
+                localStorage.setItem('isOthers2Visible', 'false');
+                this.othersClickCount = 0;
+                localStorage.setItem('othersClickCount', '0');
+            
+                // 先更新按鈕狀態
+                const others2Btn = document.querySelector('.category-btn[data-category="其他2"]');
+                if (others2Btn) {
+                    others2Btn.classList.remove('visible');
+                    others2Btn.classList.add('hidden');
+                }
+                // 切換到其他分類
+                const othersBtn = document.querySelector('.category-btn[data-category="其他"]');
+                if (othersBtn) {
+                    document.querySelectorAll('.category-btn').forEach(btn => 
+                        btn.classList.remove('active'));
+                    othersBtn.classList.add('active');
+                }
+                this.currentCategory = '其他';
+                showNotification('已隱藏分類', 'success');
+                this.render();
+                return;
+            }
+
             this.othersClickCount = (this.othersClickCount + 1) % 10;
             localStorage.setItem('othersClickCount', this.othersClickCount);
         
             if (this.othersClickCount === 5) {
-                this.isOthers2Visible = !this.isOthers2Visible;
+                this.isOthers2Visible = true;
                 localStorage.setItem('isOthers2Visible', this.isOthers2Visible);
             
-                if (this.isOthers2Visible) {
-                    // 先更新按鈕狀態
-                    const others2Btn = document.querySelector('.category-btn[data-category="其他2"]');
-                    if (others2Btn) {
-                        others2Btn.classList.remove('hidden');
-                        others2Btn.classList.add('visible');
-                        // 更新活動按鈕狀態
-                        document.querySelectorAll('.category-btn').forEach(btn => 
-                            btn.classList.remove('active'));
-                        others2Btn.classList.add('active');
-                    }
-                    // 然後更新分類和渲染
-                    this.currentCategory = '其他2';
-                    showNotification('已解鎖隱藏分類', 'success');
-
-                    // 禁用"其他"按鈕1.5秒
-                    const othersBtn = document.querySelector('.category-btn[data-category="其他"]');
-                    if (othersBtn) {
-                        othersBtn.disabled = true;
-                        othersBtn.style.opacity = '0.5';
-                        othersBtn.style.cursor = 'not-allowed';
-                        setTimeout(() => {
-                            othersBtn.disabled = false;
-                            othersBtn.style.opacity = '';
-                            othersBtn.style.cursor = '';
-                        }, 1500);
-                    }
-
-                    this.render();
-                } else {
-                    // 先更新按鈕狀態
-                    const others2Btn = document.querySelector('.category-btn[data-category="其他2"]');
-                    if (others2Btn) {
-                        others2Btn.classList.remove('visible');
-                        others2Btn.classList.add('hidden');
-                    }
-                    // 切換到其他分類
-                    const othersBtn = document.querySelector('.category-btn[data-category="其他"]');
-                    if (othersBtn) {
-                        document.querySelectorAll('.category-btn').forEach(btn => 
-                            btn.classList.remove('active'));
-                        othersBtn.classList.add('active');
-                    }
-                    this.currentCategory = '其他';
-                    showNotification('已隱藏分類', 'success');
-                    this.render();
+                // 先更新按鈕狀態
+                const others2Btn = document.querySelector('.category-btn[data-category="其他2"]');
+                if (others2Btn) {
+                    others2Btn.classList.remove('hidden');
+                    others2Btn.classList.add('visible');
+                    // 更新活動按鈕狀態
+                    document.querySelectorAll('.category-btn').forEach(btn => 
+                        btn.classList.remove('active'));
+                    others2Btn.classList.add('active');
                 }
+                // 然後更新分類和渲染
+                this.currentCategory = '其他2';
+                showNotification('已解鎖隱藏分類', 'success');
+
+                // 禁用"其他"按鈕1.5秒
+                const othersBtn = document.querySelector('.category-btn[data-category="其他"]');
+                if (othersBtn) {
+                    othersBtn.disabled = true;
+                    othersBtn.style.opacity = '0.5';
+                    othersBtn.style.cursor = 'not-allowed';
+                    setTimeout(() => {
+                        othersBtn.disabled = false;
+                        othersBtn.style.opacity = '';
+                        othersBtn.style.cursor = '';
+                    }, 1500);
+                }
+
+                this.render();
                 return;
             }
-        } else if (this.isOthers2Visible) { // 移除 category !== '其他2' 條件
+        } else if (this.isOthers2Visible) {
             // 如果切換到任何分類，則自動隱藏其他2並重置狀態
             this.isOthers2Visible = false;
             localStorage.setItem('isOthers2Visible', 'false');
