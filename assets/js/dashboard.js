@@ -238,13 +238,20 @@ class DashboardManager {
     // 過濾 widgets
     filterWidgets() {
         return this.widgets.filter(widget => {
+            // 檢查是否匹配當前分類
             const matchesCategory = this.currentCategory === '全部' || 
-                                  widget.categories.includes(this.currentCategory);
+                                  (this.currentCategory === '其他2' ? 
+                                      widget.categories.includes('其他2') : 
+                                      widget.categories.includes(this.currentCategory) && 
+                                      !widget.categories.includes('其他2'));
+
+            // 檢查是否匹配搜索條件
             const matchesSearch = !this.searchTerm || 
                                 widget.title.toLowerCase().includes(this.searchTerm) || 
                                 widget.description.toLowerCase().includes(this.searchTerm) || 
                                 widget.categories.some(cat => 
                                     cat.toLowerCase().includes(this.searchTerm));
+
             return matchesCategory && matchesSearch;
         });
     }
