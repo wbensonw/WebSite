@@ -269,6 +269,42 @@
             "url": "ftp.emc.ncep.noaa.gov/gc_wmb/jpeng/eemn",
             "categories": ["其他2"],
             "priority": 30
+        },
+	{
+            "id": "etfdb",
+            "title": "ETF Database",
+            "icon": "ri-funds-line",
+            "description": "提供全球ETF基金的詳細數據、分析和研究工具的綜合性平台。",
+            "url": "etfdb.com",
+            "categories": ["金融投資"],
+            "priority": 31
+        },
+        {
+            "id": "people-daily",
+            "title": "人民網",
+            "icon": "ri-newspaper-line",
+            "description": "中國共產黨中央委員會機關報《人民日報》主辦的綜合性新聞網站。",
+            "url": "people.com.cn/BIG5",
+            "categories": ["常用"],
+            "priority": 32
+        },
+        {
+            "id": "weather-classification",
+            "title": "天氣圖像分類數據集",
+            "icon": "ri-database-2-line",
+            "description": "多類別天氣數據集，用於圖像分類。包含日出、晴天、下雨和多雲四種天氣類型的圖像，可用於戶外天氣分析和特徵識別。",
+            "url": "github.com/IMobinI/Weather-Classification",
+            "categories": ["其他2"],
+            "priority": 33
+        },
+        {
+            "id": "brain-mri",
+            "title": "腦部MRI分割數據集",
+            "icon": "ri-microscope-line",
+            "description": "包含腦部磁共振圖像及手動FLAIR異常分割掩模的數據集。來自癌症影像檔案館(TCIA)的110位患者數據，用於低級神經膠質瘤研究。",
+            "url": "github.com/IMobinI/Brain-MRI-Segmentation/tree/main",
+            "categories": ["其他2"],
+            "priority": 34
         }
     ],
     "categories": [
