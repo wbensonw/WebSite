@@ -7,6 +7,218 @@
     <link rel="stylesheet" href="../../assets/css/main.css">
     <link rel="stylesheet" href="../../assets/css/notes.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        /* 基本樣式 */
+        .note-content h2 {
+            color: var(--primary);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        /* 戰爭比較卡片 */
+        .war-comparison {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .war-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .war-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: var(--transition-base);
+        }
+
+        .war-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .war-title {
+            color: var(--primary);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .war-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .section-content {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* 列表樣式 */
+        .war-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 0.5rem 0;
+        }
+
+        .war-list li {
+            position: relative;
+            padding-left: 1.2em;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .war-list li::before {
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+        }
+
+        /* 數據表格 */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .data-table th, 
+        .data-table td {
+            padding: 0.8rem;
+            text-align: left;
+            border: 1px solid var(--border);
+        }
+
+        .data-table th {
+            background: var(--surface-variant);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .data-table tr:nth-child(even) {
+            background: var(--surface-variant);
+        }
+
+        /* 數據展示卡片 */
+        .war-data {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+            margin: 1rem 0;
+        }
+
+        .data-item {
+            background: var(--surface-variant);
+            padding: 0.8rem;
+            border-radius: var(--radius);
+            text-align: center;
+        }
+
+        .data-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.3rem;
+        }
+
+        .data-value {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* 結果區塊 */
+        .results {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .results-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.8rem;
+        }
+
+        /* 註釋 */
+        .note-footer {
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 2px solid var(--border);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* 比較指標 */
+        .comparison-indicators {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+        }
+
+        .indicator-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .indicator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .indicator-item {
+            padding: 1rem;
+            background: var(--surface-variant);
+            border-radius: var(--radius);
+        }
+
+        .indicator-item h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* 響應式調整 */
+        @media (max-width: 768px) {
+            .war-data {
+                grid-template-columns: 1fr;
+            }
+
+            .indicator-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .data-table {
+                font-size: 0.9rem;
+            }
+
+            .data-table th, 
+            .data-table td {
+                padding: 0.6rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -32,88 +244,104 @@
             <div class="note-content">
                 <section class="war-section">
                     <h2><i class="ri-earth-line"></i> 各大洲面積排名</h2>
-                    <div class="data-table">
-                        <table>
-                            <tr>
-                                <th>大洲</th>
-                                <th>面積（平方公里）</th>
-                                <th>占地球陸地比例 (%)</th>
-                            </tr>
-                            <tr>
-                                <td>亞洲</td>
-                                <td>44,579,000</td>
-                                <td>30.1</td>
-                            </tr>
-                            <tr>
-                                <td>非洲</td>
-                                <td>30,370,000</td>
-                                <td>20.4</td>
-                            </tr>
-                            <tr>
-                                <td>北美洲</td>
-                                <td>24,709,000</td>
-                                <td>16.5</td>
-                            </tr>
-                            <tr>
-                                <td>南美洲</td>
-                                <td>17,840,000</td>
-                                <td>11.9</td>
-                            </tr>
-                            <tr>
-                                <td>南極洲</td>
-                                <td>13,200,000</td>
-                                <td>8.9</td>
-                            </tr>
-                            <tr>
-                                <td>歐洲</td>
-                                <td>10,530,000</td>
-                                <td>7.1</td>
-                            </tr>
-                            <tr>
-                                <td>大洋洲</td>
-                                <td>8,525,989</td>
-                                <td>5.1</td>
-                            </tr>
-                        </table>
+                    <div class="war-data">
+                        <div class="data-item">
+                            <div class="data-label">最大洲</div>
+                            <div class="data-value">亞洲 (44,579,000 km²)</div>
+                        </div>
+                        <div class="data-item">
+                            <div class="data-label">最小洲</div>
+                            <div class="data-value">大洋洲 (8,525,989 km²)</div>
+                        </div>
                     </div>
+                    <table class="data-table">
+                        <tr>
+                            <th>大洲</th>
+                            <th>面積（平方公里）</th>
+                            <th>占地球陸地比例 (%)</th>
+                        </tr>
+                        <tr>
+                            <td>亞洲</td>
+                            <td>44,579,000</td>
+                            <td>30.1</td>
+                        </tr>
+                        <tr>
+                            <td>非洲</td>
+                            <td>30,370,000</td>
+                            <td>20.4</td>
+                        </tr>
+                        <tr>
+                            <td>北美洲</td>
+                            <td>24,709,000</td>
+                            <td>16.5</td>
+                        </tr>
+                        <tr>
+                            <td>南美洲</td>
+                            <td>17,840,000</td>
+                            <td>11.9</td>
+                        </tr>
+                        <tr>
+                            <td>南極洲</td>
+                            <td>13,200,000</td>
+                            <td>8.9</td>
+                        </tr>
+                        <tr>
+                            <td>歐洲</td>
+                            <td>10,530,000</td>
+                            <td>7.1</td>
+                        </tr>
+                        <tr>
+                            <td>大洋洲</td>
+                            <td>8,525,989</td>
+                            <td>5.1</td>
+                        </tr>
+                    </table>
                 </section>
 
                 <section class="war-section">
                     <h2><i class="ri-water-line"></i> 各大洋面積排名</h2>
-                    <div class="data-table">
-                        <table>
-                            <tr>
-                                <th>大洋</th>
-                                <th>面積（平方公里）</th>
-                                <th>占地球海洋比例 (%)</th>
-                            </tr>
-                            <tr>
-                                <td>太平洋</td>
-                                <td>165,250,000</td>
-                                <td>46.6</td>
-                            </tr>
-                            <tr>
-                                <td>大西洋</td>
-                                <td>85,133,000</td>
-                                <td>23.5</td>
-                            </tr>
-                            <tr>
-                                <td>印度洋</td>
-                                <td>70,560,000</td>
-                                <td>19.5</td>
-                            </tr>
-                            <tr>
-                                <td>南冰洋</td>
-                                <td>21,960,000</td>
-                                <td>6.1</td>
-                            </tr>
-                            <tr>
-                                <td>北冰洋</td>
-                                <td>14,056,000</td>
-                                <td>4.3</td>
-                            </tr>
-                        </table>
+                    <div class="war-data">
+                        <div class="data-item">
+                            <div class="data-label">最大洋</div>
+                            <div class="data-value">太平洋 (165,250,000 km²)</div>
+                        </div>
+                        <div class="data-item">
+                            <div class="data-label">最小洋</div>
+                            <div class="data-value">北冰洋 (14,056,000 km²)</div>
+                        </div>
                     </div>
+                    <table class="data-table">
+                        <tr>
+                            <th>大洋</th>
+                            <th>面積（平方公里）</th>
+                            <th>占地球海洋比例 (%)</th>
+                        </tr>
+                        <tr>
+                            <td>太平洋</td>
+                            <td>165,250,000</td>
+                            <td>46.6</td>
+                        </tr>
+                        <tr>
+                            <td>大西洋</td>
+                            <td>85,133,000</td>
+                            <td>23.5</td>
+                        </tr>
+                        <tr>
+                            <td>印度洋</td>
+                            <td>70,560,000</td>
+                            <td>19.5</td>
+                        </tr>
+                        <tr>
+                            <td>南冰洋</td>
+                            <td>21,960,000</td>
+                            <td>6.1</td>
+                        </tr>
+                        <tr>
+                            <td>北冰洋</td>
+                            <td>14,056,000</td>
+                            <td>4.3</td>
+                        </tr>
+                    </table>
                 </section>
 
                 <section class="war-section">
@@ -122,7 +350,7 @@
                         <div class="indicator-grid">
                             <div class="indicator-item">
                                 <h3>前十大國家</h3>
-                                <table>
+                                <table class="data-table">
                                     <tr>
                                         <th>排名</th>
                                         <th>國家/地區</th>
@@ -193,7 +421,7 @@
                             </div>
                             <div class="indicator-item">
                                 <h3>最小五國</h3>
-                                <table>
+                                <table class="data-table">
                                     <tr>
                                         <th>排名</th>
                                         <th>國家/地區</th>
