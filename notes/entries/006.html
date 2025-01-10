@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全球面積大小 - 研究筆記</title>
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/notes.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        /* 基本樣式 */
+        .note-content h2 {
+            color: var(--primary);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        /* 週期階段卡片 */
+        .cycle-phase {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+            transition: var(--transition-base);
+        }
+
+        .cycle-phase:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .phase-section {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .phase-number {
+            background: var(--primary);
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .phase-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .phase-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .phase-content {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            padding-left: 3rem;
+        }
+
+        .phase-content ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .phase-content li {
+            position: relative;
+            padding-left: 1.2em;
+            margin-bottom: 0.5em;
+        }
+
+        .phase-content li::before {
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        /* 標準列表樣式 */
+        .standard-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        .standard-list li {
+            position: relative;
+            padding-left: 1.2em;
+            margin-bottom: 0.5em;
+        }
+
+        .standard-list li::before {
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        /* 數據表格 */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            display: block;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        .data-table th {
+            background: var(--surface-variant);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .data-table tr:nth-child(even) {
+            background: var(--surface);
+        }
+
+        .data-table tr:hover {
+            background: var(--surface-hover);
+        }
+
+        /* 案例分析 */
+        .case-study {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .case-title {
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .timeline-item::after {
+            content: "";
+            position: absolute;
+            left: 0.5rem;
+            top: 1.5rem;
+            width: 2px;
+            height: calc(100% + 1rem);
+            background: var(--border);
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        .timeline-year {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0.5rem 0;
+        }
+
+        .timeline-item li {
+            position: relative;
+            padding-left: 1.2em;
+            margin-bottom: 0.5em;
+        }
+
+        .timeline-item li::before {
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        /* 註釋 */
+        .note-footer {
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 2px solid var(--border);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* 段落樣式 */
+        p {
+            margin: 0.5rem 0;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* 標題樣式 */
+        h3 {
+            color: var(--text-primary);
+            margin: 1.5rem 0 1rem 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .cycle-phase,
+            .case-study {
+                padding: 1rem;
+            }
+
+            .data-table {
+                font-size: 0.9rem;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 0.75rem;
+            }
+
+            .timeline-item {
+                padding-left: 1.5rem;
+            }
+        
+            .phase-content {
+                padding-left: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 頁頭 -->
+    <div id="header-placeholder"></div>
+
+    <!-- 主要內容 -->
+    <main class="container">
+        <div class="back-to-notes">
+            <a href="../index.html" class="back-link">
+                <i class="ri-arrow-left-line"></i>
+                返回筆記列表
+            </a>
+        </div>
+
+        <article class="note-detail">
+            <header class="note-detail-header">
+                <div class="note-meta">
+                    <span class="note-type">房地產研究</span>
+                    <time class="note-date">2024-12-09</time>
+                </div>
+                <h1 class="note-title">全球主要房地產市場週期分析</h1>
+                <div class="note-keywords">
+                    <span class="keyword">房地產週期</span>
+                    <span class="keyword">市場分析</span>
+                    <span class="keyword">投資策略</span>
+                    <span class="keyword">風險管理</span>
+                </div>
+            </header>
+<div class="note-content">
+    <h2>各大洲面積排名</h2>
+    <div class="table-container">
+        <table class="data-table">
+            <tr>
+                <th>大洲</th>
+                <th>面積（平方公里）</th>
+                <th>占地球陸地比例 (%)</th>
+            </tr>
+            <tr>
+                <td>亞洲</td>
+                <td>44,579,000</td>
+                <td>30.1</td>
+            </tr>
+            <tr>
+                <td>非洲</td>
+                <td>30,370,000</td>
+                <td>20.4</td>
+            </tr>
+            <tr>
+                <td>北美洲</td>
+                <td>24,709,000</td>
+                <td>16.5</td>
+            </tr>
+            <tr>
+                <td>南美洲</td>
+                <td>17,840,000</td>
+                <td>11.9</td>
+            </tr>
+            <tr>
+                <td>南極洲</td>
+                <td>13,200,000</td>
+                <td>8.9</td>
+            </tr>
+            <tr>
+                <td>歐洲</td>
+                <td>10,530,000</td>
+                <td>7.1</td>
+            </tr>
+            <tr>
+                <td>大洋洲</td>
+                <td>8,525,989</td>
+                <td>5.1</td>
+            </tr>
+        </table>
+    </div>
+
+    <h2>各大洋面積排名</h2>
+    <div class="table-container">
+        <table class="data-table">
+            <tr>
+                <th>大洋</th>
+                <th>面積（平方公里）</th>
+                <th>占地球海洋比例 (%)</th>
+            </tr>
+            <tr>
+                <td>太平洋</td>
+                <td>165,250,000</td>
+                <td>46.6</td>
+            </tr>
+            <tr>
+                <td>大西洋</td>
+                <td>85,133,000</td>
+                <td>23.5</td>
+            </tr>
+            <tr>
+                <td>印度洋</td>
+                <td>70,560,000</td>
+                <td>19.5</td>
+            </tr>
+            <tr>
+                <td>南冰洋</td>
+                <td>21,960,000</td>
+                <td>6.1</td>
+            </tr>
+            <tr>
+                <td>北冰洋</td>
+                <td>14,056,000</td>
+                <td>4.3</td>
+            </tr>
+        </table>
+    </div>
+
+    <h2>國家/地區面積排名（前10名）</h2>
+    <div class="table-container">
+        <table class="data-table">
+            <tr>
+                <th>排名</th>
+                <th>國家/地區</th>
+                <th>面積（平方公里）</th>
+                <th>占全球陸地比例 (%)</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>俄羅斯</td>
+                <td>17,098,246</td>
+                <td>11.5</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>加拿大</td>
+                <td>9,984,670</td>
+                <td>6.6</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>中國</td>
+                <td>9,596,961</td>
+                <td>6.4</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>美國</td>
+                <td>9,525,067</td>
+                <td>6.3</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>巴西</td>
+                <td>8,515,770</td>
+                <td>5.7</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>澳大利亞</td>
+                <td>7,692,024</td>
+                <td>5.1</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>印度</td>
+                <td>3,287,263</td>
+                <td>2.2</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>阿根廷</td>
+                <td>2,780,400</td>
+                <td>1.9</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>哈薩克斯坦</td>
+                <td>2,724,900</td>
+                <td>1.8</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>阿爾及利亞</td>
+                <td>2,381,741</td>
+                <td>1.6</td>
+            </tr>
+        </table>
+    </div>
+
+    <h2>國家/地區面積排名（最小五國）</h2>
+    <div class="table-container">
+        <table class="data-table">
+            <tr>
+                <th>排名</th>
+                <th>國家/地區</th>
+                <th>面積（平方公里）</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>梵蒂岡</td>
+                <td>0.44</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>摩納哥</td>
+                <td>2.02</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>瑙魯</td>
+                <td>21</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>圖瓦盧</td>
+                <td>26</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>聖馬力諾</td>
+                <td>61</td>
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        <h2>資料說明</h2>
+        <ul class="standard-list">
+            <li>資料來源：United Nations Statistics Division、CIA World Factbook、World Bank（2024年更新）</li>
+            <li>面積統計包含：陸地面積、內陸水域</li>
+        </ul>
+
+        <h3>特殊說明</h3>
+        <ul class="standard-list">
+            <li>中國面積包含港澳台地區</li>
+            <li>俄羅斯面積包含克里米亞</li>
+            <li>部分國家數據可能因領土爭議而有所不同</li>
+            <li>資料更新日期：2024年1月</li>
+        </ul>
+    </div>
+
+    <div class="note-footer">
+        註：基於2024年4月前可獲得的全部公開數據。數據來源包括各國央行、國際貨幣基金組織、世界銀行、國家統計局及權威研究機構。
+    </div>
+</div>
+        </article>
+    </main>
+
+    <!-- 頁尾 -->
+    <div id="footer-placeholder"></div>
+
+    <!-- 腳本 -->
+    <script src="../../assets/js/main.js"></script>
+</body>
+</html>
