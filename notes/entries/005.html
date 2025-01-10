@@ -1,210 +1,124 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>全球面積大小 - 研究筆記</title>
     <link rel="stylesheet" href="../../assets/css/main.css">
     <link rel="stylesheet" href="../../assets/css/notes.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    <style>
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
-            background: var(--surface);
-        }
+	<style>
+  	  table {
+ 	       width: 100%;
+    	    margin-bottom: 2rem;
+        	border-collapse: collapse;
+	        background: var(--surface);
+    	    border-radius: var(--radius-lg);
+        	overflow: hidden;
+	        box-shadow: var(--shadow-md);
+    	}
 
-        .data-table th, 
-        .data-table td {
-            padding: 0.8rem;
-            text-align: left;
-            border: 1px solid var(--border);
-        }
+  	  th, td {
+  	      padding: 1rem;
+  	      text-align: left;
+  	      border-bottom: 1px solid var(--border);
+  	  }
 
-        .data-table th {
-            background: var(--surface-variant);
-            color: var(--text-primary);
-            font-weight: 600;
-            cursor: pointer;
-            user-select: none;
-        }
+  	  th {
+  	      background: var(--surface-variant);
+  	      color: var(--text-primary);
+  	      font-weight: 600;
+  	  }
 
-        .data-table th:hover {
-            background: color-mix(in srgb, var(--surface-variant) 90%, var(--primary));
-        }
+ 	   td {
+  	      color: var(--text-secondary);
+  	  }
 
-        .data-table tr:nth-child(even) {
-            background: var(--surface-variant);
-        }
+  	  tr:last-child td {
+  	      border-bottom: none;
+  	  }
 
-        .data-table tr:hover {
-            background: color-mix(in srgb, var(--surface-variant) 80%, var(--primary));
-        }
+  	  tr:hover td {
+  	      background: var(--hover-overlay);
+   	 }
 
-        .war-section {
-            margin-bottom: 2.5rem;
-            padding: 1.5rem;
-            background: var(--surface);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--border);
-        }
+   	 section {
+   	     margin-bottom: 3rem;
+   	 }
 
-        .war-section h2 {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--primary);
-            font-size: var(--text-2xl);
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--border);
-        }
+  	  section:last-child {
+  	      margin-bottom: 0;
+  	  }
 
-        .war-section h2 i {
-            font-size: 1.2em;
-        }
+  	  h2 {
+  	      font-size: var(--text-2xl);
+   	     font-weight: 600;
+  	      color: var(--text-primary);
+  	      margin-bottom: 1.5rem;
+  	  }
 
-        .war-data {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
+  	  h3 {
+  	      font-size: var(--text-xl);
+  	      font-weight: 600;
+   	     color: var(--text-primary);
+   	     margin: 2rem 0 1rem;
+  	  }
 
-        .data-item {
-            padding: 1rem;
-            background: var(--surface-variant);
-            border-radius: var(--radius-md);
-            text-align: center;
-        }
+  	  ul {
+  	      list-style-type: disc;
+  	      margin-left: 1.5rem;
+   	     margin-bottom: 1.5rem;
+   	     color: var(--text-secondary);
+   	 }
 
-        .data-label {
-            color: var(--text-secondary);
-            font-size: var(--text-sm);
-            margin-bottom: 0.5rem;
-        }
+   	 li {
+   	     margin-bottom: 0.5rem;
+   	     line-height: 1.6;
+   	 }
 
-        .data-value {
-            color: var(--primary);
-            font-size: var(--text-lg);
-            font-weight: 600;
-        }
+   	 li:last-child {
+  	      margin-bottom: 0;
+  	  }
 
-        .note-footer {
-            margin-top: 3rem;
-            padding-top: 1.5rem;
-            border-top: 2px solid var(--border);
-        }
+  	  @media (max-width: 768px) {
+  	      th, td {
+  	          padding: 0.75rem;
+  	          font-size: 0.875rem;
+  	      }
 
-        .note-footer strong {
-            color: var(--text-primary);
-            display: block;
-            margin-bottom: 1rem;
-        }
-
-        .note-footer ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .note-footer ul ul {
-            padding-left: 1.5rem;
-            margin-top: 0.5rem;
-        }
-
-        .note-footer li {
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-            line-height: 1.5;
-        }
-
-        .table-wrapper {
-            overflow-x: auto;
-            margin-bottom: 1.5rem;
-        }
-
-        @media (max-width: 768px) {
-            .war-section {
-                padding: 1rem;
-            }
-
-            .war-data {
-                grid-template-columns: 1fr;
-            }
-
-            .data-table {
-                font-size: 0.9rem;
-            }
-
-            .data-table th, 
-            .data-table td {
-                padding: 0.6rem;
-            }
-        }
-
-        .comparison-indicators {
-            margin: 1.5rem 0;
-        }
-
-        .indicator-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .indicator-item {
-            background: var(--surface);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            border: 1px solid var(--border);
-        }
-
-        .indicator-item h3 {
-            color: var(--primary);
-            font-size: var(--text-xl);
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--border);
-        }
-    </style>
+    	    table {
+   	         display: block;
+   	         overflow-x: auto;
+   	         -webkit-overflow-scrolling: touch;
+   	     }
+  	  }
+	</style>
 </head>
 <body>
-    <div class="container">
-        <div class="note-detail">
-            <div class="back-to-notes">
-                <a href="../" class="back-link">
-                    <i class="ri-arrow-left-line"></i>
-                    返回筆記列表
-                </a>
-            </div>
+    <main class="container px-4 py-8 mx-auto">
+        <div class="back-to-notes mb-8">
+            <a href="../index.html" class="text-gray-600 hover:text-primary">
+                <i class="fas fa-arrow-left mr-2"></i>返回筆記列表
+            </a>
+        </div>
 
-            <div class="note-detail-header">
-                <div class="note-keywords">
-                    <span class="keyword">地理</span>
-                    <span class="keyword">面積</span>
-                    <span class="keyword">統計</span>
-                    <span class="keyword">全球</span>
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="p-8">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="note-type bg-primary text-white px-3 py-1 rounded-full text-sm">研究筆記</div>
+                    <div class="text-gray-500 text-sm">2024-01-08</div>
                 </div>
-                <h1 class="note-title">全球面積大小 - 研究筆記</h1>
-                <div class="note-date">2024-01-08</div>
-            </div>
+                <h1 class="text-3xl font-bold mb-4">全球面積大小 - 研究筆記</h1>
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">地理</span>
+                    <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">面積</span>
+                    <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">國家</span>
+                    <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">統計</span>
+                </div>
 
-            <div class="note-content">
-                <section class="war-section">
-                    <h2><i class="ri-earth-line"></i> 各大洲面積排名</h2>
-                    <div class="war-data">
-                        <div class="data-item">
-                            <div class="data-label">最大洲</div>
-                            <div class="data-value">亞洲 (44,579,000 km²)</div>
-                        </div>
-                        <div class="data-item">
-                            <div class="data-label">最小洲</div>
-                            <div class="data-value">大洋洲 (8,525,989 km²)</div>
-                        </div>
-                    </div>
-                    <div class="table-wrapper">
-                        <table class="data-table">
+                <div class="prose max-w-none">
+                    <section>
+                        <h2>各大洲面積排名</h2>
+                        <table>
                             <thead>
                                 <tr>
                                     <th>大洲</th>
@@ -213,59 +127,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>亞洲</td>
-                                    <td>44,579,000</td>
-                                    <td>30.1</td>
-                                </tr>
-                                <tr>
-                                    <td>非洲</td>
-                                    <td>30,370,000</td>
-                                    <td>20.4</td>
-                                </tr>
-                                <tr>
-                                    <td>北美洲</td>
-                                    <td>24,709,000</td>
-                                    <td>16.5</td>
-                                </tr>
-                                <tr>
-                                    <td>南美洲</td>
-                                    <td>17,840,000</td>
-                                    <td>11.9</td>
-                                </tr>
-                                <tr>
-                                    <td>南極洲</td>
-                                    <td>13,200,000</td>
-                                    <td>8.9</td>
-                                </tr>
-                                <tr>
-                                    <td>歐洲</td>
-                                    <td>10,530,000</td>
-                                    <td>7.1</td>
-                                </tr>
-                                <tr>
-                                    <td>大洋洲</td>
-                                    <td>8,525,989</td>
-                                    <td>5.1</td>
-                                </tr>
+                                <tr><td>亞洲</td><td>44,579,000</td><td>30.1</td></tr>
+                                <tr><td>非洲</td><td>30,370,000</td><td>20.4</td></tr>
+                                <tr><td>北美洲</td><td>24,709,000</td><td>16.5</td></tr>
+                                <tr><td>南美洲</td><td>17,840,000</td><td>11.9</td></tr>
+                                <tr><td>南極洲</td><td>13,200,000</td><td>8.9</td></tr>
+                                <tr><td>歐洲</td><td>10,530,000</td><td>7.1</td></tr>
+                                <tr><td>大洋洲</td><td>8,525,989</td><td>5.1</td></tr>
                             </tbody>
                         </table>
-                    </div>
-                </section>
-<section class="war-section">
-                    <h2><i class="ri-water-line"></i> 各大洋面積排名</h2>
-                    <div class="war-data">
-                        <div class="data-item">
-                            <div class="data-label">最大洋</div>
-                            <div class="data-value">太平洋 (165,250,000 km²)</div>
-                        </div>
-                        <div class="data-item">
-                            <div class="data-label">最小洋</div>
-                            <div class="data-value">北冰洋 (14,056,000 km²)</div>
-                        </div>
-                    </div>
-                    <div class="table-wrapper">
-                        <table class="data-table">
+                    </section>
+
+                    <section>
+                        <h2>各大洋面積排名</h2>
+                        <table>
                             <thead>
                                 <tr>
                                     <th>大洋</th>
@@ -274,175 +149,81 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>太平洋</td>
-                                    <td>165,250,000</td>
-                                    <td>46.6</td>
-                                </tr>
-                                <tr>
-                                    <td>大西洋</td>
-                                    <td>85,133,000</td>
-                                    <td>23.5</td>
-                                </tr>
-                                <tr>
-                                    <td>印度洋</td>
-                                    <td>70,560,000</td>
-                                    <td>19.5</td>
-                                </tr>
-                                <tr>
-                                    <td>南冰洋</td>
-                                    <td>21,960,000</td>
-                                    <td>6.1</td>
-                                </tr>
-                                <tr>
-                                    <td>北冰洋</td>
-                                    <td>14,056,000</td>
-                                    <td>4.3</td>
-                                </tr>
+                                <tr><td>太平洋</td><td>165,250,000</td><td>46.6</td></tr>
+                                <tr><td>大西洋</td><td>85,133,000</td><td>23.5</td></tr>
+                                <tr><td>印度洋</td><td>70,560,000</td><td>19.5</td></tr>
+                                <tr><td>南冰洋</td><td>21,960,000</td><td>6.1</td></tr>
+                                <tr><td>北冰洋</td><td>14,056,000</td><td>4.3</td></tr>
                             </tbody>
                         </table>
-                    </div>
-                </section>
+                    </section>
 
-                <section class="war-section">
-                    <h2><i class="ri-global-line"></i> 國家/地區面積排名</h2>
-                    <div class="comparison-indicators">
-                        <div class="indicator-grid">
-                            <div class="indicator-item">
-                                <h3>前十大國家</h3>
-                                <table class="data-table">
-                                    <thead>
-                                        <tr>
-                                            <th>排名</th>
-                                            <th>國家/地區</th>
-                                            <th>面積（平方公里）</th>
-                                            <th>占比 (%)</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>俄羅斯</td>
-                                            <td>17,098,246</td>
-                                            <td>11.5</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>加拿大</td>
-                                            <td>9,984,670</td>
-                                            <td>6.6</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>中國</td>
-                                            <td>9,596,961</td>
-                                            <td>6.4</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>美國</td>
-                                            <td>9,525,067</td>
-                                            <td>6.3</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>巴西</td>
-                                            <td>8,515,770</td>
-                                            <td>5.7</td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>澳大利亞</td>
-                                            <td>7,692,024</td>
-                                            <td>5.1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>7</td>
-                                            <td>印度</td>
-                                            <td>3,287,263</td>
-                                            <td>2.2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>8</td>
-                                            <td>阿根廷</td>
-                                            <td>2,780,400</td>
-                                            <td>1.9</td>
-                                        </tr>
-                                        <tr>
-                                            <td>9</td>
-                                            <td>哈薩克斯坦</td>
-                                            <td>2,724,900</td>
-                                            <td>1.8</td>
-                                        </tr>
-                                        <tr>
-                                            <td>10</td>
-                                            <td>阿爾及利亞</td>
-                                            <td>2,381,741</td>
-                                            <td>1.6</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="indicator-item">
-                                <h3>最小五國</h3>
-                                <table class="data-table">
-                                    <thead>
-                                        <tr>
-                                            <th>排名</th>
-                                            <th>國家/地區</th>
-                                            <th>面積（平方公里）</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>梵蒂岡</td>
-                                            <td>0.44</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>摩納哥</td>
-                                            <td>2.02</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>瑙魯</td>
-                                            <td>21</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>圖瓦盧</td>
-                                            <td>26</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>聖馬力諾</td>
-                                            <td>61</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                    <section>
+                        <h2>國家/地區面積排名（前10名）</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>排名</th>
+                                    <th>國家/地區</th>
+                                    <th>面積（平方公里）</th>
+                                    <th>占全球陸地比例 (%)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1</td><td>俄羅斯</td><td>17,098,246</td><td>11.5</td></tr>
+                                <tr><td>2</td><td>加拿大</td><td>9,984,670</td><td>6.6</td></tr>
+                                <tr><td>3</td><td>中國</td><td>9,596,961</td><td>6.4</td></tr>
+                                <tr><td>4</td><td>美國</td><td>9,525,067</td><td>6.3</td></tr>
+                                <tr><td>5</td><td>巴西</td><td>8,515,770</td><td>5.7</td></tr>
+                                <tr><td>6</td><td>澳大利亞</td><td>7,692,024</td><td>5.1</td></tr>
+                                <tr><td>7</td><td>印度</td><td>3,287,263</td><td>2.2</td></tr>
+                                <tr><td>8</td><td>阿根廷</td><td>2,780,400</td><td>1.9</td></tr>
+                                <tr><td>9</td><td>哈薩克斯坦</td><td>2,724,900</td><td>1.8</td></tr>
+                                <tr><td>10</td><td>阿爾及利亞</td><td>2,381,741</td><td>1.6</td></tr>
+                            </tbody>
+                        </table>
+                    </section>
 
-                <div class="note-footer">
-                    <strong>資料說明：</strong>
-                    <ul class="war-list">
-                        <li>資料來源：United Nations Statistics Division、CIA World Factbook、World Bank（2024年更新）</li>
-                        <li>面積統計包含：陸地面積、內陸水域</li>
-                        <li>特殊說明：
-                            <ul>
-                                <li>中國面積包含港澳台地區</li>
-                                <li>俄羅斯面積包含克里米亞</li>
-                                <li>部分國家數據可能因領土爭議而有所不同</li>
-                            </ul>
-                        </li>
-                        <li>資料更新日期：2024年1月</li>
-                    </ul>
+                    <section>
+                        <h2>國家/地區面積排名（最小五國）</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>排名</th>
+                                    <th>國家/地區</th>
+                                    <th>面積（平方公里）</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1</td><td>梵蒂岡</td><td>0.44</td></tr>
+                                <tr><td>2</td><td>摩納哥</td><td>2.02</td></tr>
+                                <tr><td>3</td><td>瑙魯</td><td>21</td></tr>
+                                <tr><td>4</td><td>圖瓦盧</td><td>26</td></tr>
+                                <tr><td>5</td><td>聖馬力諾</td><td>61</td></tr>
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <section>
+                        <h2>資料說明</h2>
+                        <ul>
+                            <li>資料來源：United Nations Statistics Division、CIA World Factbook、World Bank（2024年更新）</li>
+                            <li>面積統計包含：陸地面積、內陸水域</li>
+                        </ul>
+
+                        <h3>特殊說明</h3>
+                        <ul>
+                            <li>中國面積包含港澳台地區</li>
+                            <li>俄羅斯面積包含克里米亞</li>
+                            <li>部分國家數據可能因領土爭議而有所不同</li>
+                            <li>資料更新日期：2024年1月</li>
+                        </ul>
+                    </section>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
+
+    <script src="../../assets/js/main.js"></script>
 </body>
 </html>
