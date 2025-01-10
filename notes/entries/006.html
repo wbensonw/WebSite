@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI - 研究筆記</title>
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/notes.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        /* 基本樣式 */
+        .note-content h2 {
+            color: var(--primary);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        /* 表格相關樣式 */
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 1rem 1.5rem;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            background: white;
+            transition: background-color 0.2s ease;
+            text-align: center;
+        }
+
+        .data-table th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tr:hover td {
+            background: #f8f9ff;
+        }
+
+        .country-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .rank-cell {
+            font-weight: 600;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        .number-cell {
+            font-family: monospace;
+            text-align: center !important;
+        }
+
+        .table-container {
+            margin: 2rem 0;
+            overflow-x: auto;
+            border-radius: 12px;
+            background: white;
+            padding: 1px;
+        }
+
+        /* 圖表相關樣式 */
+        .chart-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .table-chart-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .table-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .chart-section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 標準列表樣式 */
+        .standard-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        .standard-list li {
+            position: relative;
+            padding-left: 1.2em;
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .standard-list li::before {
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        /* 註釋 */
+        .note-footer {
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 2px solid var(--border);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* 標題樣式 */
+        h3 {
+            color: var(--text-primary);
+            margin: 1.5rem 0 1rem 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .data-table th,
+            .data-table td {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .country-cell {
+                gap: 0.5rem;
+            }
+
+            .table-chart-section {
+                flex-direction: column;
+            }
+            
+            .chart-section {
+                width: 100%;
+            }
+        }
+		    .ai-description {
+        margin-bottom: 2rem;
+        line-height: 1.8;
+    }
+
+    .ai-comparison {
+        margin-top: 1.5rem;
+    }
+
+    .ai-list {
+        list-style: none;
+        padding: 0;
+        margin: 1.5rem 0;
+    }
+
+    .ai-item {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+    }
+
+    .ai-item:hover {
+        transform: translateX(5px);
+    }
+
+    .ai-name {
+        font-weight: 600;
+        color: var(--primary);
+        min-width: 100px;
+    }
+
+    .ai-response {
+        flex: 1;
+        margin-left: 1rem;
+    }
+
+    .ai-image-ref {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin-left: 0.5rem;
+    }
+    </style>
+</head>
+<body>
+    <!-- 頁頭 -->
+    <div id="header-placeholder"></div>
+
+    <!-- 主要內容 -->
+    <main class="container">
+        <div class="back-to-notes">
+            <a href="../index.html" class="back-link">
+                <i class="ri-arrow-left-line"></i>
+                返回筆記列表
+            </a>
+        </div>
+
+        <article class="note-detail">
+            <header class="note-detail-header">
+                <div class="note-meta">
+                    <span class="note-type">研究筆記</span>
+                    <time class="note-date">2025-01-06</time>
+                </div>
+                <h1 class="note-title">AI</h1>
+                <div class="note-keywords">
+                    <span class="keyword">地理</span>
+                    <span class="keyword">面積</span>
+                    <span class="keyword">國家</span>
+                    <span class="keyword">統計</span>
+                </div>
+            </header>
+
+            <div class="note-content">
+
+<div class="ai-description">
+    <p>每個AI就像擁有獨特個性。不同的AI，面對說「我很帥」100次。這個相同問題時的反應，清楚展現出它們各自的處理風格：有的選擇直接重複100次、有的用程式碼解決、有的提供詳細解說、有的拒絕作答。這種差異不僅反映出AI模型設計的多樣性，也顯示出AI並非單純的機器，展現出AI世界的豐富多樣性和吸引力。</p>
+</div>
+
+<div class="ai-comparison">
+    <ul class="ai-list">
+        <li class="ai-item">
+            <span class="ai-name">GPT-4：</span>
+            <span class="ai-response">很開心的複製100次，整齊排列。</span>
+            <span class="ai-image-ref">(006_1.png)</span>
+        </li>
+        <li class="ai-item">
+            <span class="ai-name">Llama：</span>
+            <span class="ai-response">乖乖複製100次，垂直排列。</span>
+            <span class="ai-image-ref">(006_2.png)</span>
+        </li>
+        <li class="ai-item">
+            <span class="ai-name">Claude：</span>
+            <span class="ai-response">轉化為程式語言處理。</span>
+            <span class="ai-image-ref">(006_3.png)</span>
+        </li>
+        <li class="ai-item">
+            <span class="ai-name">Qwen：</span>
+            <span class="ai-response">雖然有性格，但還是執行。</span>
+            <span class="ai-image-ref">(006_4.png)</span>
+        </li>
+        <li class="ai-item">
+            <span class="ai-name">Gemini：</span>
+            <span class="ai-response">有性格，直接拒絕。</span>
+            <span class="ai-image-ref">(006_5.png)</span>
+        </li>
+    </ul>
+</div>
+
+                <div class="note-footer">
+                    註：基於2025年1月10日在POE發問的得到的結果。
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <!-- 頁尾 -->
+    <div id="footer-placeholder"></div>
+
+    <!-- 腳本 -->
+    <script src="../../assets/js/main.js"></script>
+</body>
+</html>
