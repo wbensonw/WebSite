@@ -38,36 +38,55 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 初始化導航切換功能
     function initNavToggle() {
+        // 檢查是否已存在 nav-toggle
+        if (document.querySelector('.nav-toggle')) {
+            return;
+        }
+
         const navToggle = document.createElement('button');
         navToggle.className = 'nav-toggle';
         navToggle.setAttribute('aria-label', '切換導航');
+        navToggle.setAttribute('type', 'button');
+    
+        // 使用 Remix Icon 的箭頭圖標
         navToggle.innerHTML = '<i class="ri-arrow-down-s-line"></i>';
 
         const navContainer = document.querySelector('.nav-container');
         const navLeft = document.querySelector('.nav-left');
-        
+    
         // 創建新的頂部容器
         const navTop = document.createElement('div');
         navTop.className = 'nav-top';
-        
+    
         // 重組導航結構
         if (navContainer && navLeft) {
+            // 移除可能已存在的 navTop
+            const existingNavTop = navContainer.querySelector('.nav-top');
+            if (existingNavTop) {
+                existingNavTop.remove();
+            }
+
             navTop.appendChild(navLeft.cloneNode(true));
             navTop.appendChild(navToggle);
             navContainer.insertBefore(navTop, navContainer.firstChild);
             navLeft.remove();
-        }
 
-        const navLinks = document.querySelector('.nav-links');
-        if (navLinks) {
-            // 設置初始狀態
-            navLinks.classList.add('show');
-            navToggle.classList.add('active');
+            const navLinks = document.querySelector('.nav-links');
+            if (navLinks) {
+                // 移除可能存在的類別
+                navLinks.classList.remove('show');
+                navToggle.classList.remove('active');
 
-            navToggle.addEventListener('click', () => {
-                navLinks.classList.toggle('show');
-                navToggle.classList.toggle('active');
-            });
+                // 設置初始狀態 - 預設展開
+                navLinks.classList.add('show');
+                navToggle.classList.add('active');
+
+                // 添加點擊事件
+                navToggle.addEventListener('click', () => {
+                    navLinks.classList.toggle('show');
+                    navToggle.classList.toggle('active');
+                });
+            }
         }
     }
 
