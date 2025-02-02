@@ -36,6 +36,66 @@ document.addEventListener('DOMContentLoaded', function() {
     // 初始化主題
     initTheme();
 
+    // 初始化導航切換功能
+    function initNavToggle() {
+        const navToggle = document.createElement('button');
+        navToggle.className = 'nav-toggle';
+        navToggle.setAttribute('aria-label', '切換導航');
+        navToggle.innerHTML = '<i class="ri-arrow-down-s-line"></i>';
+
+        const navContainer = document.querySelector('.nav-container');
+        const navLeft = document.querySelector('.nav-left');
+        
+        // 創建新的頂部容器
+        const navTop = document.createElement('div');
+        navTop.className = 'nav-top';
+        
+        // 重組導航結構
+        if (navContainer && navLeft) {
+            navTop.appendChild(navLeft.cloneNode(true));
+            navTop.appendChild(navToggle);
+            navContainer.insertBefore(navTop, navContainer.firstChild);
+            navLeft.remove();
+        }
+
+        const navLinks = document.querySelector('.nav-links');
+        if (navLinks) {
+            // 設置初始狀態
+            navLinks.classList.add('show');
+            navToggle.classList.add('active');
+
+            navToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('show');
+                navToggle.classList.toggle('active');
+            });
+        }
+    }
+
+    // 如果是移動設備，初始化導航切換
+    if (window.innerWidth <= 768) {
+        initNavToggle();
+    }
+
+    // 監聽視窗大小變化
+    window.addEventListener('resize', debounce(() => {
+        const navToggle = document.querySelector('.nav-toggle');
+        if (window.innerWidth <= 768) {
+            if (!navToggle) {
+                initNavToggle();
+            }
+        } else {
+            const navTop = document.querySelector('.nav-top');
+            if (navTop) {
+                const navContainer = document.querySelector('.nav-container');
+                const navLeft = navTop.querySelector('.nav-left');
+                if (navContainer && navLeft) {
+                    navContainer.insertBefore(navLeft, navContainer.firstChild);
+                    navTop.remove();
+                }
+            }
+        }
+    }, 250));
+
     // 監聽系統主題變化
     if (window.matchMedia) {
         const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -61,7 +121,8 @@ document.addEventListener('DOMContentLoaded', function() {
         prefix = '../../';
     } else if (currentPath.includes('/notes/') || 
                currentPath.includes('/papers/') || 
-               currentPath.includes('/dashboard/')) {
+               currentPath.includes('/dashboard/') ||
+               currentPath.includes('/projects/')) {
         // 各個分區的主頁
         headerPath = '../shared/header.html';
         footerPath = '../shared/footer.html';
@@ -84,6 +145,11 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // 重新初始化主題圖標
             updateThemeIcon(document.documentElement.getAttribute('data-theme'));
+
+            // 如果是移動設備，初始化導航切換
+            if (window.innerWidth <= 768) {
+                initNavToggle();
+            }
         })
         .catch(err => console.error('載入頁首失敗:', err));
 
