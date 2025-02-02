@@ -3,7 +3,7 @@
         {
             "id": "001",
             "title": "arXiv 研究論文列表",
-            "type": "人工智能","氣象環境",
+            "type": ["人工智能", "氣象環境"],
             "date": "2025-02-02",
             "url": "projects/entries/001.html",
             "keywords": ["人工智能", "機器學習", "氣象", "研究論文", "arXiv"],
