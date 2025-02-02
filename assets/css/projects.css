@@ -280,15 +280,15 @@
 }
 
 .projects-type:nth-of-type(2) {
-    background: var(--success);
+    background: var(--primary);
 }
 
 .projects-type:nth-of-type(3) {
-    background: var(--info);
+    background: var(--primary);
 }
 
 .projects-type:nth-of-type(4) {
-    background: var(--warning);
+    background: var(--primary);
 }
 
 .projects-date {
