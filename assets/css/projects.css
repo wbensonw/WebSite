@@ -234,9 +234,19 @@
 
 /* 類型標籤容器 */
 .projects-types {
-    display: flex;
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     gap: 0.5rem;
-    flex-wrap: wrap;
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 4px;
+}
+
+.projects-types::-webkit-scrollbar {
+    display: none;
 }
 
 /* 類型標籤 */
@@ -248,6 +258,8 @@
     font-size: var(--text-xs);
     font-weight: 500;
     transition: var(--transition-base);
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 /* 不同類型使用不同顏色 */
@@ -256,7 +268,7 @@
 }
 
 .projects-type:nth-of-type(2) {
-    background: var(--success);
+    background: var(--primary);
 }
 
 /* 卡片 */
@@ -284,9 +296,10 @@
 .projects-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     margin-bottom: 1rem;
     gap: 1rem;
+    flex-wrap: nowrap;
 }
 
 .projects-date {
@@ -479,8 +492,8 @@
 /* 響應式調整 */
 @media (max-width: 768px) {
     .projects-header {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row;
+        align-items: center;
         gap: 1rem;
         padding: 1.5rem;
     }
@@ -515,20 +528,11 @@
         grid-template-columns: 1fr;
     }
 
-    /* 確保手機版面的兩個 type 在同一行 */
-    .projects-types {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        gap: 0.5rem;
-    }
-
     .projects-type {
         font-size: var(--text-xs);
         padding: 0.25rem 0.5rem;
     }
 
-    /* 列表視圖在手機版的調整 */
     .projects-list-item {
         grid-template-columns: 1fr;
         gap: 1rem;
