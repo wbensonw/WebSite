@@ -9,21 +9,29 @@ WebSite/
 │   └── entries/
 │       ├── 001.html
 │       └── 002.html
+├── projects/                       # 實作應用
+│   ├── index.html
+│   └── entries/
+│       ├── 001.html
+│       └── 002.html
 ├── assets/
 │   ├── css/
 │   │   ├── main.css            # 主要樣式
 │   │   ├── dashboard.css       # 儀表板樣式
 │   │   ├── papers.css          # 論文頁面樣式
-│   │   └── notes.css           # 筆記系統樣式
+│   │   ├── notes.css           # 筆記系統樣式
+│   │   └── projects.css        # 實作應用樣式
 │   ├── js/
 │   │   ├── main.js            # 共用函數
 │   │   ├── dashboard.js       # 儀表板功能
 │   │   ├── papers.js          # 論文頁面功能
-│   │   └── notes.js           # 筆記系統功能
+│   │   ├── notes.js           # 筆記系統功能
+│   │   └── notes.js           # 實作應用功能
 │   ├── data/
 │   │   ├── widgets.json       # 儀表板數據
 │   │   ├── papers.json        # 論文數據
-│   │   └── notes.json         # 筆記數據
+│   │   ├── notes.json         # 筆記數據
+│   │   └── projects.json      # 實作應用數據
 │   └── images/
 │       └── notes/             # 筆記圖片
 │           ├── 001/
