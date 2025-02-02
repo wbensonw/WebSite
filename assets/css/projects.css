@@ -1,15 +1,10 @@
 /* 頁面樣式 */
 .projects-header {
-    position: relative;
-    margin-bottom: 2rem;
-    padding: 2rem;
-    background: var(--surface);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    gap: 2rem;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    gap: 1rem;
 }
 
 .header-content {
@@ -261,6 +256,14 @@
     margin-bottom: 1rem;
 }
 
+/* 類型標籤容器 */
+.projects-types {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+/* 類型標籤 */
 .projects-type {
     padding: 0.25rem 0.75rem;
     background: var(--primary);
@@ -268,11 +271,30 @@
     border-radius: var(--radius-full);
     font-size: var(--text-xs);
     font-weight: 500;
+    transition: var(--transition-base);
+}
+
+/* 不同類型使用不同顏色 */
+.projects-type:nth-of-type(1) {
+    background: var(--primary);
+}
+
+.projects-type:nth-of-type(2) {
+    background: var(--success);
+}
+
+.projects-type:nth-of-type(3) {
+    background: var(--info);
+}
+
+.projects-type:nth-of-type(4) {
+    background: var(--warning);
 }
 
 .projects-date {
     color: var(--text-tertiary);
     font-size: var(--text-sm);
+    white-space: nowrap;
 }
 
 .projects-title {
@@ -414,6 +436,11 @@
     transition: var(--transition-bounce);
     opacity: 0;
     transform: translateY(20px);
+}
+
+/* 列表視圖的調整 */
+.projects-list-item .projects-types {
+    margin-right: 1rem;
 }
 
 .projects-list-item:hover {
@@ -671,8 +698,15 @@
     .projects-header {
         flex-direction: column;
         align-items: flex-start;
-        gap: 1rem;
-        padding: 1.5rem;
+    }
+	
+    .projects-types {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .projects-date {
+        margin-top: 0.5rem;
     }
 
     .projects-title {
@@ -725,7 +759,7 @@
 
 /* 深色模式適配 */
 [data-theme="dark"] .projects-type {
-    background: var(--primary-dark);
+    opacity: 0.9;
 }
 
 [data-theme="dark"] .keyword {
