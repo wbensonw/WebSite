@@ -201,8 +201,14 @@ class ProjectsManager {
             <div class="projects-card">
                 <div class="projects-card-content">
                     <div class="projects-header">
-                        <span class="projects-type">${Array.isArray(project.type) ? 
-                            project.type.join(', ') : project.type}</span>
+                        <div class="projects-types">
+                            ${Array.isArray(project.type) ? 
+                                project.type.map(type => `
+                                    <span class="projects-type">${type}</span>
+                                `).join('') : 
+                                `<span class="projects-type">${project.type}</span>`
+                            }
+                        </div>
                         <span class="projects-date">${formatDate(project.date)}</span>
                     </div>
                     <h2 class="projects-title">${project.title}</h2>
@@ -230,8 +236,14 @@ class ProjectsManager {
         return `
             <div class="projects-list-item">
                 <div class="projects-meta">
-                    <span class="projects-type">${Array.isArray(project.type) ? 
-                        project.type.join(', ') : project.type}</span>
+                    <div class="projects-types">
+                        ${Array.isArray(project.type) ? 
+                            project.type.map(type => `
+                                <span class="projects-type">${type}</span>
+                            `).join('') : 
+                            `<span class="projects-type">${project.type}</span>`
+                        }
+                    </div>
                     <span class="projects-date">${formatDate(project.date)}</span>
                 </div>
                 <div class="projects-content">
