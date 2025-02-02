@@ -229,18 +229,26 @@ body {
 }
 
 .nav-toggle {
-    display: none;
+    display: none; /* 桌面版預設隱藏 */
     background: none;
     border: none;
     color: var(--text-primary);
     padding: 0.5rem;
     cursor: pointer;
     transition: var(--transition-base);
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-md);
+}
+
+.nav-toggle:hover {
+    background: var(--surface-variant);
 }
 
 .nav-toggle i {
     font-size: var(--text-xl);
     transition: transform 0.3s ease;
+    display: block;
 }
 
 .nav-toggle.active i {
