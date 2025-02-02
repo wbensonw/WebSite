@@ -26,7 +26,7 @@ WebSite/
 │   │   ├── dashboard.js       # 儀表板功能
 │   │   ├── papers.js          # 論文頁面功能
 │   │   ├── notes.js           # 筆記系統功能
-│   │   └── notes.js           # 實作應用功能
+│   │   └── projects.js           # 實作應用功能
 │   ├── data/
 │   │   ├── widgets.json       # 儀表板數據
 │   │   ├── papers.json        # 論文數據
