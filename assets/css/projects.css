@@ -239,10 +239,6 @@
     flex-wrap: nowrap;
     gap: 0.5rem;
     max-width: 100%;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    padding-bottom: 4px;
 }
 
 .projects-types::-webkit-scrollbar {
@@ -252,14 +248,13 @@
 /* 類型標籤 */
 .projects-type {
     padding: 0.25rem 0.75rem;
-    background: var(--primary);
     color: white;
     border-radius: var(--radius-full);
     font-size: var(--text-xs);
     font-weight: 500;
-    transition: var(--transition-base);
     white-space: nowrap;
     flex-shrink: 0;
+    letter-spacing: 0.025em;
 }
 
 /* 不同類型使用不同顏色 */
@@ -298,14 +293,14 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
-    gap: 1rem;
-    flex-wrap: nowrap;
+    gap: 1.5rem;
 }
 
 .projects-date {
-    color: var(--text-tertiary);
+    color: var(--text-secondary);
     font-size: var(--text-sm);
     white-space: nowrap;
+    font-weight: 500;
 }
 
 .projects-title {
@@ -313,7 +308,7 @@
     font-weight: 600;
     color: var(--text-primary);
     margin-bottom: 0.75rem;
-    line-height: var(--leading-snug);
+    line-height: 1.4;
 }
 
 .projects-keywords {
@@ -492,10 +487,7 @@
 /* 響應式調整 */
 @media (max-width: 768px) {
     .projects-header {
-        flex-direction: row;
-        align-items: center;
         gap: 1rem;
-        padding: 1.5rem;
     }
 
     .projects-title {
@@ -529,9 +521,13 @@
     }
 
     .projects-type {
+        padding: 0.25rem 0.625rem;
         font-size: var(--text-xs);
-        padding: 0.25rem 0.5rem;
     }
+
+    .projects-date {
+        font-size: var(--text-xs);
+    }  
 
     .projects-list-item {
         grid-template-columns: 1fr;
@@ -562,6 +558,11 @@
 
 /* 深色模式適配 */
 [data-theme="dark"] .projects-type {
+    opacity: 0.95;
+}
+
+[data-theme="dark"] .projects-date {
+    color: var(--text-secondary);
     opacity: 0.9;
 }
 
