@@ -166,12 +166,15 @@ class ProjectsManager {
 
     // 過濾實作應用
     filterProjects() {
-        return this.projects.filter(projects => {
-            const matchesType = this.currentType === '全部' || projects.type === this.currentType;
+        return this.projects.filter(project => {
+            const matchesType = this.currentType === '全部' || 
+                (Array.isArray(project.type) ? 
+                    project.type.includes(this.currentType) : 
+                    project.type === this.currentType);
             const matchesSearch = !this.searchTerm || 
-                                projects.title.toLowerCase().includes(this.searchTerm) || 
-                                projects.content.text.toLowerCase().includes(this.searchTerm) || 
-                                projects.keywords.some(k => k.toLowerCase().includes(this.searchTerm));
+                project.title.toLowerCase().includes(this.searchTerm) || 
+                project.content.text.toLowerCase().includes(this.searchTerm) || 
+                project.keywords.some(k => k.toLowerCase().includes(this.searchTerm));
             return matchesType && matchesSearch;
         });
     }
@@ -193,25 +196,26 @@ class ProjectsManager {
     }
 
     // 創建實作應用卡片
-    createProjectsCard(projects) {
+    createProjectsCard(project) {
         return `
             <div class="projects-card">
                 <div class="projects-card-content">
                     <div class="projects-header">
-                        <span class="projects-type">${projects.type}</span>
-                        <span class="projects-date">${formatDate(projects.date)}</span>
+                        <span class="projects-type">${Array.isArray(project.type) ? 
+                            project.type.join(', ') : project.type}</span>
+                        <span class="projects-date">${formatDate(project.date)}</span>
                     </div>
-                    <h2 class="projects-title">${projects.title}</h2>
+                    <h2 class="projects-title">${project.title}</h2>
                     <div class="projects-keywords">
-                        ${projects.keywords.map(keyword => 
+                        ${project.keywords.map(keyword => 
                             `<span class="keyword">${keyword}</span>`
                         ).join('')}
                     </div>
                     <div class="projects-preview">
-                        ${this.createPreviewContent(projects)}
+                        ${this.createPreviewContent(project)}
                     </div>
                     <div class="projects-card-actions">
-                        <a href="../${projects.url}" class="projects-card-btn">
+                        <a href="../${project.url}" class="projects-card-btn">
                             <i class="ri-article-line"></i>
                             查看詳情
                         </a>
@@ -222,23 +226,24 @@ class ProjectsManager {
     }
 
     // 創建實作應用列表項
-    createProjectsListItem(projects) {
+    createProjectsListItem(project) {
         return `
             <div class="projects-list-item">
                 <div class="projects-meta">
-                    <span class="projects-type">${projects.type}</span>
-                    <span class="projects-date">${formatDate(projects.date)}</span>
+                    <span class="projects-type">${Array.isArray(project.type) ? 
+                        project.type.join(', ') : project.type}</span>
+                    <span class="projects-date">${formatDate(project.date)}</span>
                 </div>
                 <div class="projects-content">
-                    <h2 class="projects-title">${projects.title}</h2>
+                    <h2 class="projects-title">${project.title}</h2>
                     <div class="projects-keywords">
-                        ${projects.keywords.map(keyword => 
+                        ${project.keywords.map(keyword => 
                             `<span class="keyword">${keyword}</span>`
                         ).join('')}
                     </div>
                 </div>
                 <div class="projects-card-actions">
-                    <a href="../${projects.url}" class="projects-card-btn">
+                    <a href="../${project.url}" class="projects-card-btn">
                         <i class="ri-article-line"></i>
                         查看詳情
                     </a>
@@ -248,23 +253,23 @@ class ProjectsManager {
     }
 
     // 創建預覽內容
-    createPreviewContent(projects) {
+    createPreviewContent(project) {
         let preview = '';
         
-        if (projects.content.text) {
-            preview += `<p class="preview-text">${projects.content.text}</p>`;
+        if (project.content.text) {
+            preview += `<p class="preview-text">${project.content.text}</p>`;
         }
         
-        if (projects.content.images && projects.content.images.length > 0) {
+        if (project.content.images && project.content.images.length > 0) {
             preview += `
                 <div class="preview-images">
-                    ${projects.content.images.slice(0, 2).map(img => `
+                    ${project.content.images.slice(0, 2).map(img => `
                         <img src="../${img.url}" 
                              alt="${img.caption}"
                              onerror="handleImageError(this)">
                     `).join('')}
-                    ${projects.content.images.length > 2 ? 
-                        `<div class="more-images">+${projects.content.images.length - 2}</div>` : 
+                    ${project.content.images.length > 2 ? 
+                        `<div class="more-images">+${project.content.images.length - 2}</div>` : 
                         ''}
                 </div>
             `;
@@ -344,9 +349,9 @@ class ProjectsManager {
         }
 
         container.innerHTML = paginatedProjects
-            .map(projects => this.currentView === 'grid' ? 
-                this.createProjectsCard(projects) : 
-                this.createProjectsListItem(projects))
+            .map(project => this.currentView === 'grid' ? 
+                this.createProjectsCard(project) : 
+                this.createProjectsListItem(project))
             .join('');
 
         if (paginationContainer) {
