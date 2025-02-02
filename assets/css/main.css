@@ -398,7 +398,7 @@ body {
         padding: 0.75rem;
         border-top: 1px solid var(--border);
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         gap: 0.5rem;
         z-index: 90;
     }
