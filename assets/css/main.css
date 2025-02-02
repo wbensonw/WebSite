@@ -174,99 +174,6 @@ body {
     font-size: var(--text-xl);
 }
 
-/* 通用元素樣式 */
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    border-radius: var(--radius-md);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    cursor: pointer;
-    transition: var(--transition-base);
-    text-decoration: none;
-}
-
-.btn-primary {
-    background: var(--primary);
-    color: white;
-    border: none;
-}
-
-.btn-primary:hover {
-    background: var(--primary-dark);
-    transform: translateY(-2px);
-}
-
-.btn-secondary {
-    background: var(--surface-variant);
-    color: var(--text-secondary);
-    border: 1px solid var(--border);
-}
-
-.btn-secondary:hover {
-    background: var(--surface);
-    color: var(--text-primary);
-    border-color: var(--border-hover);
-    transform: translateY(-2px);
-}
-
-/* 響應式設計 */
-@media (max-width: 1536px) {
-    :root {
-        --container-padding: 1.5rem;
-    }
-}
-
-@media (max-width: 1280px) {
-    :root {
-        --container-padding: 1.25rem;
-    }
-}
-
-@media (max-width: 1024px) {
-    :root {
-        --container-padding: 1rem;
-    }
-}
-
-@media (max-width: 768px) {
-    html {
-        font-size: 14px;
-    }
-    
-    .theme-toggle {
-        bottom: 1.5rem;
-        right: 1.5rem;
-        width: 2.5rem;
-        height: 2.5rem;
-    }
-}
-
-@media (max-width: 640px) {
-    html {
-        font-size: 12px;
-    }
-}
-
-/* 動畫 */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(1rem);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.fade-in {
-    animation: fadeIn 0.5s ease-out;
-}
-
 /* 導航欄樣式 */
 .main-header {
     background: var(--surface);
@@ -274,7 +181,8 @@ body {
     position: sticky;
     top: 0;
     z-index: 100;
-    height: var(--header-height);
+    height: auto;
+    min-height: var(--header-height);
     border-bottom: 1px solid var(--border);
 }
 
@@ -284,8 +192,15 @@ body {
     padding: 0 var(--container-padding);
     height: 100%;
     display: flex;
+    flex-direction: column;
+}
+
+.nav-top {
+    display: flex;
     justify-content: space-between;
     align-items: center;
+    height: var(--header-height);
+    padding: 0.5rem 0;
 }
 
 .nav-left {
@@ -313,9 +228,29 @@ body {
     color: var(--primary);
 }
 
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: var(--transition-base);
+}
+
+.nav-toggle i {
+    font-size: var(--text-xl);
+    transition: transform 0.3s ease;
+}
+
+.nav-toggle.active i {
+    transform: rotate(180deg);
+}
+
 .nav-links {
     display: flex;
     gap: 2rem;
+    transition: var(--transition-base);
 }
 
 .nav-item {
@@ -383,24 +318,55 @@ body {
 }
 
 /* 響應式設計 */
+@media (max-width: 1536px) {
+    :root {
+        --container-padding: 1.5rem;
+    }
+}
+
+@media (max-width: 1280px) {
+    :root {
+        --container-padding: 1.25rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    :root {
+        --container-padding: 1rem;
+    }
+}
+
 @media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+
     .nav-container {
-        position: relative;
         padding: 0 1rem;
     }
 
+    .nav-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     .nav-links {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: var(--surface);
-        padding: 0.75rem;
-        border-top: 1px solid var(--border);
+        width: 100%;
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 0.5rem;
-        z-index: 90;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        padding: 0;
+    }
+
+    .nav-links.show {
+        max-height: 200px;
+        opacity: 1;
+        padding: 0.75rem;
+        border-top: 1px solid var(--border);
     }
 
     .nav-item {
@@ -408,10 +374,18 @@ body {
         font-size: var(--text-xs);
         padding: 0.5rem;
         text-align: center;
+        justify-content: center;
     }
 
     .nav-item i {
         font-size: var(--text-xl);
+    }
+
+    .theme-toggle {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: 2.5rem;
+        height: 2.5rem;
     }
 
     .footer-links {
@@ -421,7 +395,24 @@ body {
     }
 }
 
-/* 深色模式適配 */
-[data-theme="dark"] .nav-logo i {
-    color: var(--primary-light);
+@media (max-width: 640px) {
+    html {
+        font-size: 12px;
+    }
+}
+
+/* 動畫 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(1rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
 }
